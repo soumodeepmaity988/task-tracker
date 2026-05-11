@@ -1,11 +1,14 @@
 'use client';
 import Sidebar from '@/components/Sidebar';
 import { useApp } from '@/contexts/AppContext';
-import { CheckCircle2, Zap, ListTodo, BookOpen, TrendingUp, Kanban } from 'lucide-react';
+import { CheckCircle2, Zap, ListTodo, BookOpen, TrendingUp, Kanban, Calendar, Flame, Target } from 'lucide-react';
 import Link from 'next/link';
+import ActivityHeatmap from '@/components/ActivityHeatmap';
+import { OnTimeChart, GoalsChart, CompletionTrendChart, WeeklyReviewSummary, HabitConsistencyChart } from '@/components/DashboardCharts';
+import { startOfDay, DAY_MS, fmtRelative } from '@/lib/dateUtils';
 
 export default function DashboardPage() {
-  const { boards, subjects, loadingBoards, loadingSubjects } = useApp();
+  const { boards, subjects, habits, goals, journal, loadingBoards, loadingSubjects } = useApp();
 
   const allTasks = boards.flatMap(b => b.tasks || []);
   const todo = allTasks.filter(t => t.status === 'todo').length;
@@ -51,6 +54,61 @@ export default function DashboardPage() {
                     <div className="stat-label">{s.label}</div>
                   </div>
                 ))}
+              </div>
+
+              <div className="glass-card" style={{ padding: 20, marginBottom: 20 }}>
+                <ActivityHeatmap boards={boards} habits={habits} />
+              </div>
+
+              {(() => {
+                const today = startOfDay(Date.now());
+                const todayTasks = boards.flatMap(b =>
+                  (b.tasks || [])
+                    .filter(t => t.dueDate && startOfDay(t.dueDate) <= today && t.status !== 'done')
+                    .map(t => ({ ...t, _board: b }))
+                );
+                if (todayTasks.length === 0) return null;
+                return (
+                  <div className="glass-card" style={{ padding: 20, marginBottom: 20 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                      <h2 style={{ fontSize: 14, fontWeight: 700 }}>📅 Today & Overdue ({todayTasks.length})</h2>
+                      <Link href="/today" className="btn btn-ghost btn-sm">View all</Link>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                      {todayTasks.slice(0, 5).map(t => (
+                        <Link
+                          key={t.id}
+                          href={`/tasks/${t._board.id}/${t.id}`}
+                          style={{
+                            display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px',
+                            border: '1px solid var(--border)', borderRadius: 8, textDecoration: 'none', color: 'var(--text-primary)', fontSize: 13,
+                          }}
+                        >
+                          <span style={{ flex: 1, fontWeight: 500 }}>{t.title}</span>
+                          <span className={`tag ${pColor[t.priority]}`} style={{ fontSize: 10 }}>{t.priority}</span>
+                          <span className="tag tag-gray" style={{ fontSize: 10 }}>{fmtRelative(t.dueDate)}</span>
+                          <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{t._board.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Insight charts */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 20 }}>
+                <OnTimeChart boards={boards} />
+                <GoalsChart goals={goals} />
+                <CompletionTrendChart boards={boards} />
+              </div>
+
+              <div style={{ marginBottom: 20 }}>
+                <HabitConsistencyChart habits={habits} />
+              </div>
+
+              {/* Weekly review surfaced */}
+              <div style={{ marginBottom: 20 }}>
+                <WeeklyReviewSummary entries={journal} />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>

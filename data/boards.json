@@ -4,5 +4,756 @@
     "name": "aafa",
     "createdAt": 1778492275119,
     "tasks": []
+  },
+  {
+    "id": "board-1778520828096",
+    "name": "🧮 Dynamic Programming",
+    "createdAt": 1778520828096,
+    "sourceSubjectId": "s-1778507015047",
+    "tasks": [
+      {
+        "id": "t-1778520828096-0",
+        "title": "Introduction to DP",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-0"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-0-0",
+            "title": "Striver's Dynamic Programming Series | The ULTIMATE | The BIGGEST | Teaser  #shorts",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=FfXoiwwnxFw",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-0-0"
+          },
+          {
+            "id": "st-1778520828096-0-1",
+            "title": "DP 1. Introduction to Dynamic Programming | Memoization | Tabulation | Space Optimization Techniques",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=tyB0ztf0DNY",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-0-1"
+          }
+        ],
+        "dueDate": 1778524200000,
+        "timeEstimate": null,
+        "sprintId": null,
+        "recurring": "",
+        "completedAt": null
+      },
+      {
+        "id": "t-1778520828096-1",
+        "title": "1D DP",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-1"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-1-0",
+            "title": "DP 2. Climbing Stairs | Learn How to Write 1D Recurrence Relations",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=mLfjzJsN8us",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-1-0"
+          },
+          {
+            "id": "st-1778520828096-1-1",
+            "title": "DP 3. Frog Jump | Dynamic Programming | Learn to write 1D DP",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=EgG3jsGoPvQ",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-1-1"
+          },
+          {
+            "id": "st-1778520828096-1-2",
+            "title": "DP 4. Frog Jump with K Distance | Lecture 3 Follow Up Question",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=Kmh3rhyEtB8",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-1-2"
+          },
+          {
+            "id": "st-1778520828096-1-3",
+            "title": "DP 5. Maximum Sum of Non-Adjacent Elements | House Robber | 1-D | DP on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=GrMBfJNk_NY",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-1-3"
+          },
+          {
+            "id": "st-1778520828096-1-4",
+            "title": "DP 6. House Robber 2 | 1D DP | DP on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=3WaxQMELSkw",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-1-4"
+          }
+        ],
+        "dueDate": 1778524200000,
+        "timeEstimate": null,
+        "sprintId": null,
+        "recurring": "",
+        "completedAt": null
+      },
+      {
+        "id": "t-1778520828096-2",
+        "title": "2D / 3D DP and DP on Grids",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-2"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-2-0",
+            "title": "DP 7. Ninja's Training | MUST WATCH for 2D CONCEPTS 🔥 | Vacation | Atcoder | 2D DP |",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=AE39gJYuRog",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-2-0"
+          },
+          {
+            "id": "st-1778520828096-2-1",
+            "title": "DP 8. Grid Unique Paths | Learn Everything about DP on Grids | ALL TECHNIQUES 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=sdE0A2Oxofw",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-2-1"
+          },
+          {
+            "id": "st-1778520828096-2-2",
+            "title": "DP 9. Unique Paths 2 | DP on Grid with Maze Obstacles",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=TmhpgXScLyY",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-2-2"
+          },
+          {
+            "id": "st-1778520828096-2-3",
+            "title": "DP 10. Minimum Path Sum in Grid | Asked to me In Microsoft Internship Interview | DP on GRIDS",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=_rgTlyky1uQ",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-2-3"
+          },
+          {
+            "id": "st-1778520828096-2-4",
+            "title": "DP 11. Triangle | Fixed Starting Point and Variable Ending Point | DP on GRIDS",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=SrP-PiLSYC0",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-2-4"
+          },
+          {
+            "id": "st-1778520828096-2-5",
+            "title": "DP 12. Minimum/Maximum Falling Path Sum | Variable Starting and Ending Points | DP on Grids",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=N_aJ5qQbYA0",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-2-5"
+          },
+          {
+            "id": "st-1778520828096-2-6",
+            "title": "DP 13. Cherry Pickup II | 3D DP Made Easy | DP On Grids",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=QGfn7JeXK54",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-2-6"
+          }
+        ],
+        "dueDate": 1778524200000,
+        "timeEstimate": null,
+        "sprintId": null,
+        "recurring": "",
+        "completedAt": null
+      },
+      {
+        "id": "t-1778520828096-3",
+        "title": "DP on Subsequences",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-3"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-3-0",
+            "title": "DP 14. Subset Sum Equals to Target | Identify DP on Subsequences and Ways to Solve them",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=fWX9xDmIzRI",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-0"
+          },
+          {
+            "id": "st-1778520828096-3-1",
+            "title": "DP 15. Partition Equal Subset Sum | DP on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=7win3dcgo3k",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-1"
+          },
+          {
+            "id": "st-1778520828096-3-2",
+            "title": "Dp 16. Partition A Set Into Two Subsets With Minimum Absolute Sum Difference | DP on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=GS_OqZb2CWc",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-2"
+          },
+          {
+            "id": "st-1778520828096-3-3",
+            "title": "DP 17. Counts Subsets with Sum K | Dp on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=ZHyb-A2Mte4",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-3"
+          },
+          {
+            "id": "st-1778520828096-3-4",
+            "title": "DP 18. Count Partitions With Given Difference | Dp on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=zoilQD1kYSg",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-4"
+          },
+          {
+            "id": "st-1778520828096-3-5",
+            "title": "DP 19. 0/1 Knapsack | Recursion to Single Array Space Optimised Approach | DP on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=GqOmJHQZivw",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-5"
+          },
+          {
+            "id": "st-1778520828096-3-6",
+            "title": "DP 20. Minimum Coins | DP on Subsequences | Infinite Supplies Pattern",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=myPeWb3Y68A",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-6"
+          },
+          {
+            "id": "st-1778520828096-3-7",
+            "title": "DP 21. Target Sum | DP on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=b3GD8263-PQ",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-7"
+          },
+          {
+            "id": "st-1778520828096-3-8",
+            "title": "DP 22. Coin Change 2 | Infinite Supply Problems  | DP on Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=HgyouUi11zk",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-8"
+          },
+          {
+            "id": "st-1778520828096-3-9",
+            "title": "DP 23. Unbounded Knapsack | 1-D Array Space Optimised Approach",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=OgvOZ6OrJoY",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-9"
+          },
+          {
+            "id": "st-1778520828096-3-10",
+            "title": "DP 24. Rod Cutting Problem | 1D Array Space Optimised Approach",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=mO8XpGoJwuo",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-3-10"
+          }
+        ],
+        "dueDate": 1778524200000,
+        "timeEstimate": null,
+        "sprintId": null,
+        "recurring": "",
+        "completedAt": null
+      },
+      {
+        "id": "t-1778520828096-4",
+        "title": "DP on Strings",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-4"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-4-0",
+            "title": "Dp 25. Longest Common Subsequence | Top Down | Bottom-Up | Space Optimised | DP on Strings",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=NPZn9jBrX8U",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-0"
+          },
+          {
+            "id": "st-1778520828096-4-1",
+            "title": "DP 26. Print Longest Common Subsequence | Dp on Strings",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=-zI4mrF2Pb4",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-1"
+          },
+          {
+            "id": "st-1778520828096-4-2",
+            "title": "DP 27. Longest Common Substring | DP on Strings 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=_wP9mWNPL5w",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-2"
+          },
+          {
+            "id": "st-1778520828096-4-3",
+            "title": "DP 28. Longest Palindromic Subsequence",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=6i_T5kkfv4A",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-3"
+          },
+          {
+            "id": "st-1778520828096-4-4",
+            "title": "DP 29. Minimum Insertions to Make String Palindrome",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=xPBLEj41rFU",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-4"
+          },
+          {
+            "id": "st-1778520828096-4-5",
+            "title": "DP 30. Minimum Insertions/Deletions to Convert String A to String B",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=yMnH0jrir0Q",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-5"
+          },
+          {
+            "id": "st-1778520828096-4-6",
+            "title": "DP 31. Shortest Common Supersequence | DP on Strings",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=xElxAuBcvsU",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-6"
+          },
+          {
+            "id": "st-1778520828096-4-7",
+            "title": "DP 32. Distinct Subsequences | 1D Array Optimisation Technique 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=nVG7eTiD2bY",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-7"
+          },
+          {
+            "id": "st-1778520828096-4-8",
+            "title": "DP 33. Edit Distance | Recursive to 1D Array Optimised Solution 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=fJaKO8FbDdo",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-8"
+          },
+          {
+            "id": "st-1778520828096-4-9",
+            "title": "DP 34. Wildcard Matching | Recursive to 1D Array Optimisation 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=ZmlQ3vgAOMo",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-4-9"
+          }
+        ]
+      },
+      {
+        "id": "t-1778520828096-5",
+        "title": "DP on Stocks",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-5"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-5-0",
+            "title": "DP 35. Best Time to Buy and Sell Stock | DP on Stocks 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=excAOvwF_Wk",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-5-0"
+          },
+          {
+            "id": "st-1778520828096-5-1",
+            "title": "DP 36. Buy and Sell Stock - II | Recursion to Space Optimisation",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=nGJmxkUJQGs",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-5-1"
+          },
+          {
+            "id": "st-1778520828096-5-2",
+            "title": "DP 37. Buy and Sell Stocks III | Recursion to Space Optimisation",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=-uQGzhYj8BQ",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-5-2"
+          },
+          {
+            "id": "st-1778520828096-5-3",
+            "title": "DP 38. Buy and Stock Sell IV | Recursion to Space Optimisation",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=IV1dHbk5CDc",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-5-3"
+          },
+          {
+            "id": "st-1778520828096-5-4",
+            "title": "DP 39. Buy and Sell Stocks With Cooldown | Recursion to Space Optimisation",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=IGIe46xw3YY",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-5-4"
+          },
+          {
+            "id": "st-1778520828096-5-5",
+            "title": "DP 40. Buy and Sell Stocks With Transaction Fee | Recursion to Space Optimisation",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=k4eK-vEmnKg",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-5-5"
+          }
+        ]
+      },
+      {
+        "id": "t-1778520828096-6",
+        "title": "DP on LIS",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-6"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-6-0",
+            "title": "DP 41. Longest Increasing Subsequence | Memoization",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=ekcwMsSIzVc",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-6-0"
+          },
+          {
+            "id": "st-1778520828096-6-1",
+            "title": "DP 42. Printing Longest Increasing Subsequence | Tabulation | Algorithm",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=IFfYfonAFGc",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-6-1"
+          },
+          {
+            "id": "st-1778520828096-6-2",
+            "title": "DP 43. Longest Increasing Subsequence | Binary Search | Intuition",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=on2hvxBXJH4",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-6-2"
+          },
+          {
+            "id": "st-1778520828096-6-3",
+            "title": "DP 44. Largest Divisible Subset | Longest Increasing Subsequence",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=gDuZwBW9VvM",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-6-3"
+          },
+          {
+            "id": "st-1778520828096-6-4",
+            "title": "DP 45. Longest String Chain | Longest Increasing Subsequence | LIS",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=YY8iBaYcc4g",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-6-4"
+          },
+          {
+            "id": "st-1778520828096-6-5",
+            "title": "DP 46. Longest Bitonic Subsequence | LIS",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=y4vN0WNdrlg",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-6-5"
+          },
+          {
+            "id": "st-1778520828096-6-6",
+            "title": "DP 47. Number of Longest Increasing Subsequences",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=cKVl1TFdNXg",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-6-6"
+          }
+        ]
+      },
+      {
+        "id": "t-1778520828096-7",
+        "title": "MCM DP | Partition DP",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-7"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-7-0",
+            "title": "DP 48. Matrix Chain Multiplication | MCM | Partition DP Starts 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=vRVfmbCFW7Y",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-7-0"
+          },
+          {
+            "id": "st-1778520828096-7-1",
+            "title": "DP 49. Matrix Chain Multiplication | Bottom-Up | Tabulation",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=pDCXsbAw5Cg",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-7-1"
+          },
+          {
+            "id": "st-1778520828096-7-2",
+            "title": "DP 50. Minimum Cost to Cut the Stick",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=xwomavsC86c",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-7-2"
+          },
+          {
+            "id": "st-1778520828096-7-3",
+            "title": "DP 51. Burst Balloons | Partition DP | Interactive G-Meet Session Update",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=Yz4LlDSlkns",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-7-3"
+          },
+          {
+            "id": "st-1778520828096-7-4",
+            "title": "DP 52. Evaluate Boolean Expression to True | Partition DP",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=MM7fXopgyjw",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-7-4"
+          },
+          {
+            "id": "st-1778520828096-7-5",
+            "title": "DP 53. Palindrome Partitioning - II | Front Partition 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=_H8V5hJUGd0",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-7-5"
+          },
+          {
+            "id": "st-1778520828096-7-6",
+            "title": "DP 54. Partition Array for Maximum Sum | Front Partition 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=PhWWJmaKfMc",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-7-6"
+          }
+        ]
+      },
+      {
+        "id": "t-1778520828096-8",
+        "title": "DP on Squares / Rectangles",
+        "description": "",
+        "priority": "medium",
+        "tags": [
+          "Dynamic Programming"
+        ],
+        "status": "todo",
+        "createdAt": 1778520828096,
+        "sourceRef": {
+          "subjectId": "s-1778507015047",
+          "topicId": "tp-1778507015037-8"
+        },
+        "subtasks": [
+          {
+            "id": "st-1778520828096-8-0",
+            "title": "DP 55. Maximum Rectangle Area with all 1's | DP on Rectangles",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=tOylVCugy9k",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-8-0"
+          },
+          {
+            "id": "st-1778520828096-8-1",
+            "title": "DP 56. Count Square Submatrices with All Ones | DP on Rectangles 🔥",
+            "notes": "",
+            "videoUrl": "https://www.youtube.com/watch?v=auS1fynpnjo",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "sourceContentId": "c-1778507015037-8-1"
+          }
+        ]
+      }
+    ]
   }
 ]

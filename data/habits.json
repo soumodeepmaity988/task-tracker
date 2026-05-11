@@ -1,0 +1,60 @@
+[
+  {
+    "id": "h-1778518981738",
+    "name": "Amla juice",
+    "icon": "🥗",
+    "color": "#22c55e",
+    "cadence": "daily",
+    "target": 1,
+    "createdAt": 1778518981738,
+    "completions": [
+      "2026-05-10"
+    ]
+  },
+  {
+    "id": "h-1778519069040",
+    "name": "2 Eggs, 1/2 apple, 2 banana, 1/2 cucumber, 2 bread",
+    "icon": "🥗",
+    "color": "#4f8ef7",
+    "cadence": "daily",
+    "target": 1,
+    "createdAt": 1778519069040,
+    "completions": [
+      "2026-05-10"
+    ]
+  },
+  {
+    "id": "h-1778519149319",
+    "name": "Eat vegetable ",
+    "icon": "🥗",
+    "color": "#ec4899",
+    "cadence": "daily",
+    "target": 1,
+    "createdAt": 1778519149319,
+    "completions": [
+      "2026-05-10"
+    ]
+  },
+  {
+    "id": "h-1778519171584",
+    "name": "Sprouts ",
+    "icon": "🥗",
+    "color": "#f97316",
+    "cadence": "daily",
+    "target": 1,
+    "createdAt": 1778519171584,
+    "completions": []
+  },
+  {
+    "id": "h-1778519189641",
+    "name": "2 cup black coffee",
+    "icon": "☕",
+    "color": "#8b5cf6",
+    "cadence": "daily",
+    "target": 1,
+    "createdAt": 1778519189641,
+    "completions": [
+      "2026-05-10"
+    ]
+  }
+]

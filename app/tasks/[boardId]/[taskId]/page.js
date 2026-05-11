@@ -1,9 +1,108 @@
 'use client';
-import { use, useState, useEffect } from 'react';
+import { use, useState, useEffect, useMemo } from 'react';
 import Sidebar from '@/components/Sidebar';
 import { useApp } from '@/contexts/AppContext';
 import Link from 'next/link';
-import { ArrowLeft, Check, Pencil, Trash2, Video, FileText, X, Plus, Save } from 'lucide-react';
+import { ArrowLeft, Check, Pencil, Trash2, Video, FileText, X, Plus, Save, Play, ExternalLink, GripVertical, Timer } from 'lucide-react';
+import Markdown from '@/components/Markdown';
+import { usePomodoro } from '@/contexts/PomodoroContext';
+import { fmtDuration, fmtRelative, isOverdue, isToday } from '@/lib/dateUtils';
+
+function getYoutubeId(url) {
+  if (!url) return null;
+  const patterns = [
+    /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function VideoPlayerModal({ url, title, onClose }) {
+  const id = getYoutubeId(url);
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  return (
+    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="modal" style={{ maxWidth: 960, width: '92%' }}>
+        <div className="modal-header">
+          <span className="modal-title" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 12 }}>{title}</span>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-icon btn-sm" title="Open on YouTube">
+              <ExternalLink size={14} />
+            </a>
+            <button className="btn btn-ghost btn-icon btn-sm" onClick={onClose} title="Close"><X size={16} /></button>
+          </div>
+        </div>
+        <div style={{ aspectRatio: '16/9', background: 'black', width: '100%' }}>
+          {id ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`}
+              title={title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ border: 0, width: '100%', height: '100%', display: 'block' }}
+            />
+          ) : (
+            <div style={{ padding: 40, color: 'var(--text-muted)', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', flexDirection: 'column', gap: 10 }}>
+              <p style={{ fontSize: 13 }}>Can't embed this URL inline.</p>
+              <a className="btn btn-primary btn-sm" href={url} target="_blank" rel="noopener noreferrer">
+                <ExternalLink size={12} /> Open in new tab
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VideoThumbnail({ url, onClick }) {
+  const id = getYoutubeId(url);
+  if (!id) return null;
+  return (
+    <button
+      onClick={onClick}
+      type="button"
+      style={{
+        position: 'relative', display: 'block', width: '100%', maxWidth: 320,
+        marginTop: 10, padding: 0, border: '1px solid var(--border)', borderRadius: 10,
+        overflow: 'hidden', cursor: 'pointer', background: 'black',
+        transition: 'transform 0.15s, border-color 0.15s',
+      }}
+      onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent-blue)'; }}
+      onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; }}
+      title="Play video"
+    >
+      <img
+        src={`https://img.youtube.com/vi/${id}/mqdefault.jpg`}
+        alt="Video thumbnail"
+        style={{ width: '100%', height: 'auto', display: 'block', aspectRatio: '16/9', objectFit: 'cover' }}
+      />
+      <div style={{
+        position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.4) 100%)',
+      }}>
+        <div style={{
+          width: 48, height: 48, borderRadius: '50%',
+          background: 'rgba(255,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.5)',
+        }}>
+          <Play size={20} color="white" fill="white" style={{ marginLeft: 2 }} />
+        </div>
+      </div>
+    </button>
+  );
+}
 
 const STATUS_CYCLE = { 'not-started': 'learning', 'learning': 'done', 'done': 'not-started' };
 const STATUS_COLOR = { 'not-started': 'tag-gray', 'learning': 'tag-yellow', 'done': 'tag-green' };
@@ -76,33 +175,32 @@ function SubtaskModal({ initial, onSave, onClose }) {
 
 export default function TaskDetailPage({ params }) {
   const { boardId, taskId } = use(params);
-  const { updateBoard, fetchBoards } = useApp();
-  const [board, setBoard] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { boards, loadingBoards, updateBoard } = useApp();
+  const board = useMemo(() => boards.find(b => b.id === boardId), [boards, boardId]);
+  const task = useMemo(() => board?.tasks?.find(t => t.id === taskId), [board, taskId]);
+  const loading = loadingBoards;
   const [subtaskModal, setSubtaskModal] = useState(null);
+  const [videoModal, setVideoModal] = useState(null); // { url, title } | null
   const [editingDesc, setEditingDesc] = useState(false);
   const [descValue, setDescValue] = useState('');
+  const { session: pomoSession, start: startPomo, stop: stopPomo } = usePomodoro();
+  const draggingSubtaskId = useMemo(() => ({ current: null }), []);
+  const [dragOverSubtaskId, setDragOverSubtaskId] = useState(null);
 
-  const fetchBoard = async () => {
-    const res = await fetch(`/api/boards/${boardId}`);
-    if (res.ok) setBoard(await res.json());
-    setLoading(false);
+  const reorderSubtasks = async (draggedId, targetId) => {
+    if (!draggedId || draggedId === targetId) return;
+    const list = [...(task.subtasks || [])];
+    const fromIdx = list.findIndex(s => s.id === draggedId);
+    const toIdx = list.findIndex(s => s.id === targetId);
+    if (fromIdx < 0 || toIdx < 0) return;
+    const [moved] = list.splice(fromIdx, 1);
+    list.splice(toIdx, 0, moved);
+    await saveTask({ ...task, subtasks: list });
   };
-
-  useEffect(() => { fetchBoard(); }, [boardId]);
-
-  const task = board?.tasks?.find(t => t.id === taskId);
 
   const saveTask = async (updatedTask) => {
     const tasks = board.tasks.map(t => t.id === taskId ? updatedTask : t);
-    const updated = { ...board, tasks };
-    setBoard(updated);
-    await fetch(`/api/boards/${boardId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tasks }),
-    });
-    updateBoard(boardId, { tasks });
+    await updateBoard(boardId, { tasks });
   };
 
   // Sync subtask statuses back to subjects.json
@@ -222,13 +320,34 @@ export default function TaskDetailPage({ params }) {
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
               <div style={{ flex: 1 }}>
                 <h1 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>{task.title}</h1>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12, alignItems: 'center' }}>
                   <span className={`tag ${PRIORITY_TAG[task.priority]}`}>{task.priority}</span>
+                  {task.dueDate && (
+                    <span className={`tag ${isOverdue(task.dueDate) ? 'tag-red' : isToday(task.dueDate) ? 'tag-orange' : 'tag-blue'}`}>
+                      📅 {fmtRelative(task.dueDate)}
+                    </span>
+                  )}
+                  {task.recurring && <span className="tag tag-purple">🔁 {task.recurring}</span>}
+                  {task.timeEstimate ? (
+                    <span className="tag tag-gray">⏱ est {fmtDuration(task.timeEstimate)}</span>
+                  ) : null}
+                  {task.timeSpent ? (
+                    <span className="tag tag-green">⌛ spent {fmtDuration(task.timeSpent)}</span>
+                  ) : null}
                   {task.tags?.map(tag => <span key={tag} className="tag tag-blue">{tag}</span>)}
                   {task.sourceRef && (
                     <Link href={`/subjects/${task.sourceRef.subjectId}`} className="tag tag-purple" style={{ textDecoration: 'none' }}>
                       📚 From Subject
                     </Link>
+                  )}
+                  {pomoSession?.taskId === task.id ? (
+                    <button className="btn btn-ghost btn-sm" onClick={() => stopPomo(true)} style={{ fontSize: 11 }}>
+                      <Timer size={12} /> Stop Pomodoro
+                    </button>
+                  ) : (
+                    <button className="btn btn-ghost btn-sm" onClick={() => startPomo(task, board)} style={{ fontSize: 11 }}>
+                      <Timer size={12} /> 🍅 Start 25m focus
+                    </button>
                   )}
                 </div>
               </div>
@@ -269,9 +388,11 @@ export default function TaskDetailPage({ params }) {
                     <button className="btn btn-ghost btn-sm" onClick={() => setEditingDesc(false)}>Cancel</button>
                   </div>
                 </div>
+              ) : task.description ? (
+                <Markdown>{task.description}</Markdown>
               ) : (
-                <p style={{ fontSize: 13, color: task.description ? 'var(--text-secondary)' : 'var(--text-muted)', lineHeight: 1.6, fontStyle: task.description ? 'normal' : 'italic' }}>
-                  {task.description || 'No description yet — click the pencil to add one.'}
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.6, fontStyle: 'italic' }}>
+                  No description yet — click the pencil to add one.
                 </p>
               )}
             </div>
@@ -307,52 +428,81 @@ export default function TaskDetailPage({ params }) {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {subtasks.map(st => (
-                <div key={st.id} className="glass-card content-row" style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
-                  {/* Status circle */}
-                  <button
-                    className={`topic-check ${st.status}`}
-                    onClick={() => handleCycleSubtaskStatus(st.id)}
-                    title="Click to cycle status"
-                    style={{ flexShrink: 0 }}
-                  >
-                    {st.status === 'done' && <Check size={10} color="white" />}
-                    {st.status === 'learning' && <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'white', display: 'block' }} />}
-                  </button>
+                <div
+                  key={st.id}
+                  className="glass-card content-row"
+                  style={{
+                    padding: '12px 16px',
+                    ...(dragOverSubtaskId === st.id ? { outline: '2px dashed var(--accent-blue)', outlineOffset: 2 } : {}),
+                  }}
+                  draggable
+                  onDragStart={(e) => { draggingSubtaskId.current = st.id; e.dataTransfer.effectAllowed = 'move'; }}
+                  onDragOver={(e) => { e.preventDefault(); setDragOverSubtaskId(st.id); }}
+                  onDragLeave={() => setDragOverSubtaskId(null)}
+                  onDrop={(e) => { e.preventDefault(); reorderSubtasks(draggingSubtaskId.current, st.id); draggingSubtaskId.current = null; setDragOverSubtaskId(null); }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <GripVertical size={12} style={{ color: 'var(--text-muted)', cursor: 'grab', flexShrink: 0 }} />
+                    {/* Status circle */}
+                    <button
+                      className={`topic-check ${st.status}`}
+                      onClick={() => handleCycleSubtaskStatus(st.id)}
+                      title="Click to cycle status"
+                      style={{ flexShrink: 0 }}
+                    >
+                      {st.status === 'done' && <Check size={10} color="white" />}
+                      {st.status === 'learning' && <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'white', display: 'block' }} />}
+                    </button>
 
-                  {/* Content */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{
-                        fontSize: 13, fontWeight: 500,
-                        textDecoration: st.status === 'done' ? 'line-through' : 'none',
-                        opacity: st.status === 'done' ? 0.6 : 1,
-                      }}>{st.title}</span>
-                      <span className={`tag ${PRIORITY_TAG[st.priority]}`} style={{ fontSize: 9, padding: '1px 6px' }}>{st.priority}</span>
-                      <span className={`tag ${STATUS_COLOR[st.status]}`} style={{ fontSize: 9, padding: '1px 6px' }}>{STATUS_LABEL[st.status]}</span>
+                    {/* Content */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                        <span style={{
+                          fontSize: 13, fontWeight: 500,
+                          textDecoration: st.status === 'done' ? 'line-through' : 'none',
+                          opacity: st.status === 'done' ? 0.6 : 1,
+                        }}>{st.title}</span>
+                        <span className={`tag ${PRIORITY_TAG[st.priority]}`} style={{ fontSize: 9, padding: '1px 6px' }}>{st.priority}</span>
+                        <span className={`tag ${STATUS_COLOR[st.status]}`} style={{ fontSize: 9, padding: '1px 6px' }}>{STATUS_LABEL[st.status]}</span>
+                      </div>
+                      {st.notes && (
+                        <div style={{ marginTop: 4 }}><Markdown compact>{st.notes}</Markdown></div>
+                      )}
                     </div>
-                    {st.notes && (
-                      <p style={{ fontSize: 11, color: 'var(--text-muted)', margin: '4px 0 0', lineHeight: 1.5 }}>{st.notes}</p>
-                    )}
+
+                    {/* Links & actions */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      {st.videoUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setVideoModal({ url: st.videoUrl, title: st.title })}
+                          title="Play Video"
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 6, background: 'rgba(255,68,68,0.12)', color: '#ff4444', border: 'none', cursor: 'pointer' }}
+                        >
+                          <Video size={14} />
+                        </button>
+                      )}
+                      {st.docUrl && (
+                        <a href={st.docUrl} target="_blank" rel="noopener noreferrer" title="Open Doc"
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 6, background: 'rgba(79,142,247,0.12)', color: '#4f8ef7', textDecoration: 'none' }}>
+                          <FileText size={14} />
+                        </a>
+                      )}
+                      <div style={{ width: 1, height: 18, background: 'var(--border)', margin: '0 2px' }} />
+                      <button className="task-card-action-btn" onClick={() => setSubtaskModal({ initial: st })} title="Edit"><Pencil size={12} /></button>
+                      <button className="task-card-action-btn" onClick={() => handleDeleteSubtask(st.id)} title="Delete"><Trash2 size={12} /></button>
+                    </div>
                   </div>
 
-                  {/* Links & actions */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                    {st.videoUrl && (
-                      <a href={st.videoUrl} target="_blank" rel="noopener noreferrer" title="Watch Video"
-                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 6, background: 'rgba(255,68,68,0.12)', color: '#ff4444', textDecoration: 'none' }}>
-                        <Video size={14} />
-                      </a>
-                    )}
-                    {st.docUrl && (
-                      <a href={st.docUrl} target="_blank" rel="noopener noreferrer" title="Open Doc"
-                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 6, background: 'rgba(79,142,247,0.12)', color: '#4f8ef7', textDecoration: 'none' }}>
-                        <FileText size={14} />
-                      </a>
-                    )}
-                    <div style={{ width: 1, height: 18, background: 'var(--border)', margin: '0 2px' }} />
-                    <button className="task-card-action-btn" onClick={() => setSubtaskModal({ initial: st })} title="Edit"><Pencil size={12} /></button>
-                    <button className="task-card-action-btn" onClick={() => handleDeleteSubtask(st.id)} title="Delete"><Trash2 size={12} /></button>
-                  </div>
+                  {/* Video thumbnail preview (below content) */}
+                  {st.videoUrl && getYoutubeId(st.videoUrl) && (
+                    <div style={{ paddingLeft: 32 }}>
+                      <VideoThumbnail
+                        url={st.videoUrl}
+                        onClick={() => setVideoModal({ url: st.videoUrl, title: st.title })}
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -365,6 +515,14 @@ export default function TaskDetailPage({ params }) {
           initial={subtaskModal.initial}
           onSave={handleSaveSubtask}
           onClose={() => setSubtaskModal(null)}
+        />
+      )}
+
+      {videoModal && (
+        <VideoPlayerModal
+          url={videoModal.url}
+          title={videoModal.title}
+          onClose={() => setVideoModal(null)}
         />
       )}
     </div>

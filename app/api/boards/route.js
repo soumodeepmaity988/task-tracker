@@ -13,6 +13,7 @@ export async function POST(request) {
     name: body.name || 'Untitled Board',
     createdAt: Date.now(),
     tasks: [],
+    sprints: [],
   };
   boards.push(newBoard);
   writeBoards(boards);

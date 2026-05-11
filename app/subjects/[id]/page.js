@@ -1,5 +1,5 @@
 'use client';
-import { use, useState, useEffect } from 'react';
+import { use, useState, useEffect, useMemo } from 'react';
 import Sidebar from '@/components/Sidebar';
 import { useApp } from '@/contexts/AppContext';
 import { useRouter } from 'next/navigation';
@@ -222,10 +222,10 @@ function ContentItem({ content, onEdit, onDelete, onCycleStatus }) {
 
 export default function SubjectDetailPage({ params }) {
   const { id } = use(params);
-  const { updateSubject, fetchBoards } = useApp();
+  const { subjects, loadingSubjects, updateSubject, fetchBoards } = useApp();
   const router = useRouter();
-  const [subject, setSubject] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const subject = useMemo(() => subjects.find(s => s.id === id), [subjects, id]);
+  const loading = loadingSubjects;
   const [converting, setConverting] = useState(false);
   const [showConvertModal, setShowConvertModal] = useState(false);
 
@@ -233,24 +233,7 @@ export default function SubjectDetailPage({ params }) {
   const [contentModal, setContentModal] = useState(null); // null | { topicId, initial? }
   const [collapsedTopics, setCollapsedTopics] = useState({});
 
-  const fetchSubject = async () => {
-    const res = await fetch(`/api/subjects/${id}`);
-    if (res.ok) setSubject(await res.json());
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchSubject(); }, [id]);
-
-  const saveSubject = async (patch) => {
-    const updated = { ...subject, ...patch };
-    setSubject(updated);
-    await fetch(`/api/subjects/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(patch),
-    });
-    updateSubject(id, patch);
-  };
+  const saveSubject = (patch) => updateSubject(id, patch);
 
   // --- Topic CRUD ---
   const handleAddTopic = (form) => {
