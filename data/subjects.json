@@ -1,633 +1,1789 @@
 [
   {
-    "id": "s-1778507015047",
+    "id": "s-1778525873847",
     "name": "Dynamic Programming",
     "icon": "🧮",
     "color": "#8b5cf6",
-    "description": "/ takeUforward DP playlist — 56 problems across all major DP patterns (1D → grids → subsequences → strings → stocks → LIS → partition DP → squares).",
-    "createdAt": 1778507015047,
+    "description": "Striver/takeUforward DP playlist organized as a 7-day study plan (≈5 hrs/day). 56 problems across all major DP patterns.",
+    "createdAt": 1778525873847,
     "topics": [
       {
-        "id": "tp-1778507015037-0",
-        "title": "Introduction to DP",
+        "id": "tp-1778525873803-0",
+        "title": "Day 1 — Introduction & 1D DP",
         "contents": [
           {
-            "id": "c-1778507015037-0-0",
-            "title": "Striver's Dynamic Programming Series | The ULTIMATE | The BIGGEST | Teaser  #shorts",
-            "videoUrl": "https://www.youtube.com/watch?v=FfXoiwwnxFw",
-            "docUrl": "",
-            "priority": "medium",
-            "status": "not-started",
-            "notes": "",
-            "createdAt": 1778507015037
-          },
-          {
-            "id": "c-1778507015037-0-1",
-            "title": "DP 1. Introduction to Dynamic Programming | Memoization | Tabulation | Space Optimization Techniques",
+            "id": "c-1778525873803-0-0",
+            "title": "DP 1. Introduction to Dynamic Programming | Memoization | Tabulation",
             "videoUrl": "https://www.youtube.com/watch?v=tyB0ztf0DNY",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/fibonacci-number/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
-          }
-        ]
-      },
-      {
-        "id": "tp-1778507015037-1",
-        "title": "1D DP",
-        "contents": [
+            "createdAt": 1778525873803
+          },
           {
-            "id": "c-1778507015037-1-0",
-            "title": "DP 2. Climbing Stairs | Learn How to Write 1D Recurrence Relations",
+            "id": "c-1778525873803-0-1",
+            "title": "DP 2. Climbing Stairs",
             "videoUrl": "https://www.youtube.com/watch?v=mLfjzJsN8us",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/climbing-stairs/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-1-1",
-            "title": "DP 3. Frog Jump | Dynamic Programming | Learn to write 1D DP",
+            "id": "c-1778525873803-0-2",
+            "title": "DP 3. Frog Jump",
             "videoUrl": "https://www.youtube.com/watch?v=EgG3jsGoPvQ",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/geek-jump/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-1-2",
-            "title": "DP 4. Frog Jump with K Distance | Lecture 3 Follow Up Question",
+            "id": "c-1778525873803-0-3",
+            "title": "DP 4. Frog Jump with K Distance",
             "videoUrl": "https://www.youtube.com/watch?v=Kmh3rhyEtB8",
             "docUrl": "",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-1-3",
-            "title": "DP 5. Maximum Sum of Non-Adjacent Elements | House Robber | 1-D | DP on Subsequences",
+            "id": "c-1778525873803-0-4",
+            "title": "DP 5. Maximum Sum of Non-Adjacent Elements | House Robber",
             "videoUrl": "https://www.youtube.com/watch?v=GrMBfJNk_NY",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/house-robber/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-1-4",
-            "title": "DP 6. House Robber 2 | 1D DP | DP on Subsequences",
+            "id": "c-1778525873803-0-5",
+            "title": "DP 6. House Robber 2",
             "videoUrl": "https://www.youtube.com/watch?v=3WaxQMELSkw",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/house-robber-ii/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           }
         ]
       },
       {
-        "id": "tp-1778507015037-2",
-        "title": "2D / 3D DP and DP on Grids",
+        "id": "tp-1778525873803-1",
+        "title": "Day 2 — 2D DP & DP on Grids",
         "contents": [
           {
-            "id": "c-1778507015037-2-0",
-            "title": "DP 7. Ninja's Training | MUST WATCH for 2D CONCEPTS 🔥 | Vacation | Atcoder | 2D DP |",
+            "id": "c-1778525873803-1-0",
+            "title": "DP 7. Ninja's Training",
             "videoUrl": "https://www.youtube.com/watch?v=AE39gJYuRog",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/geeks-training/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-2-1",
-            "title": "DP 8. Grid Unique Paths | Learn Everything about DP on Grids | ALL TECHNIQUES 🔥",
+            "id": "c-1778525873803-1-1",
+            "title": "DP 8. Grid Unique Paths",
             "videoUrl": "https://www.youtube.com/watch?v=sdE0A2Oxofw",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/unique-paths/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-2-2",
-            "title": "DP 9. Unique Paths 2 | DP on Grid with Maze Obstacles",
+            "id": "c-1778525873803-1-2",
+            "title": "DP 9. Unique Paths 2",
             "videoUrl": "https://www.youtube.com/watch?v=TmhpgXScLyY",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/unique-paths-ii/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-2-3",
-            "title": "DP 10. Minimum Path Sum in Grid | Asked to me In Microsoft Internship Interview | DP on GRIDS",
+            "id": "c-1778525873803-1-3",
+            "title": "DP 10. Minimum Path Sum in Grid",
             "videoUrl": "https://www.youtube.com/watch?v=_rgTlyky1uQ",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/minimum-path-sum/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-2-4",
-            "title": "DP 11. Triangle | Fixed Starting Point and Variable Ending Point | DP on GRIDS",
+            "id": "c-1778525873803-1-4",
+            "title": "DP 11. Triangle (Fixed Starting Point)",
             "videoUrl": "https://www.youtube.com/watch?v=SrP-PiLSYC0",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/triangle/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-2-5",
-            "title": "DP 12. Minimum/Maximum Falling Path Sum | Variable Starting and Ending Points | DP on Grids",
+            "id": "c-1778525873803-1-5",
+            "title": "DP 12. Minimum/Maximum Falling Path Sum",
             "videoUrl": "https://www.youtube.com/watch?v=N_aJ5qQbYA0",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/minimum-falling-path-sum/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-2-6",
-            "title": "DP 13. Cherry Pickup II | 3D DP Made Easy | DP On Grids",
+            "id": "c-1778525873803-1-6",
+            "title": "DP 13. Cherry Pickup II (3D DP)",
             "videoUrl": "https://www.youtube.com/watch?v=QGfn7JeXK54",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/cherry-pickup-ii/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           }
         ]
       },
       {
-        "id": "tp-1778507015037-3",
-        "title": "DP on Subsequences",
+        "id": "tp-1778525873803-2",
+        "title": "Day 3 — DP on Subsequences I",
         "contents": [
           {
-            "id": "c-1778507015037-3-0",
-            "title": "DP 14. Subset Sum Equals to Target | Identify DP on Subsequences and Ways to Solve them",
+            "id": "c-1778525873803-2-0",
+            "title": "DP 14. Subset Sum Equals to Target",
             "videoUrl": "https://www.youtube.com/watch?v=fWX9xDmIzRI",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-3-1",
-            "title": "DP 15. Partition Equal Subset Sum | DP on Subsequences",
+            "id": "c-1778525873803-2-1",
+            "title": "DP 15. Partition Equal Subset Sum",
             "videoUrl": "https://www.youtube.com/watch?v=7win3dcgo3k",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/partition-equal-subset-sum/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-3-2",
-            "title": "Dp 16. Partition A Set Into Two Subsets With Minimum Absolute Sum Difference | DP on Subsequences",
+            "id": "c-1778525873803-2-2",
+            "title": "DP 16. Partition Set into Two Subsets with Min Absolute Sum Diff",
             "videoUrl": "https://www.youtube.com/watch?v=GS_OqZb2CWc",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/minimum-sum-partition3317/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-3-3",
-            "title": "DP 17. Counts Subsets with Sum K | Dp on Subsequences",
+            "id": "c-1778525873803-2-3",
+            "title": "DP 17. Counts Subsets with Sum K",
             "videoUrl": "https://www.youtube.com/watch?v=ZHyb-A2Mte4",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/perfect-sum-problem5633/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-3-4",
-            "title": "DP 18. Count Partitions With Given Difference | Dp on Subsequences",
+            "id": "c-1778525873803-2-4",
+            "title": "DP 18. Count Partitions With Given Difference",
             "videoUrl": "https://www.youtube.com/watch?v=zoilQD1kYSg",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/partitions-with-given-difference/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-3-5",
-            "title": "DP 19. 0/1 Knapsack | Recursion to Single Array Space Optimised Approach | DP on Subsequences",
+            "id": "c-1778525873803-2-5",
+            "title": "DP 19. 0/1 Knapsack",
             "videoUrl": "https://www.youtube.com/watch?v=GqOmJHQZivw",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-3-6",
-            "title": "DP 20. Minimum Coins | DP on Subsequences | Infinite Supplies Pattern",
+            "id": "c-1778525873803-2-6",
+            "title": "DP 20. Minimum Coins",
             "videoUrl": "https://www.youtube.com/watch?v=myPeWb3Y68A",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/coin-change/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-3-7",
-            "title": "DP 21. Target Sum | DP on Subsequences",
+            "id": "c-1778525873803-2-7",
+            "title": "DP 21. Target Sum",
             "videoUrl": "https://www.youtube.com/watch?v=b3GD8263-PQ",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/target-sum/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-3-8",
-            "title": "DP 22. Coin Change 2 | Infinite Supply Problems  | DP on Subsequences",
+            "id": "c-1778525873803-2-8",
+            "title": "DP 22. Coin Change 2",
             "videoUrl": "https://www.youtube.com/watch?v=HgyouUi11zk",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/coin-change-ii/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
-          },
-          {
-            "id": "c-1778507015037-3-9",
-            "title": "DP 23. Unbounded Knapsack | 1-D Array Space Optimised Approach",
-            "videoUrl": "https://www.youtube.com/watch?v=OgvOZ6OrJoY",
-            "docUrl": "",
-            "priority": "medium",
-            "status": "not-started",
-            "notes": "",
-            "createdAt": 1778507015037
-          },
-          {
-            "id": "c-1778507015037-3-10",
-            "title": "DP 24. Rod Cutting Problem | 1D Array Space Optimised Approach",
-            "videoUrl": "https://www.youtube.com/watch?v=mO8XpGoJwuo",
-            "docUrl": "",
-            "priority": "medium",
-            "status": "not-started",
-            "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           }
         ]
       },
       {
-        "id": "tp-1778507015037-4",
-        "title": "DP on Strings",
+        "id": "tp-1778525873803-3",
+        "title": "Day 4 — DP on Subsequences II & Strings I",
         "contents": [
           {
-            "id": "c-1778507015037-4-0",
-            "title": "Dp 25. Longest Common Subsequence | Top Down | Bottom-Up | Space Optimised | DP on Strings",
-            "videoUrl": "https://www.youtube.com/watch?v=NPZn9jBrX8U",
-            "docUrl": "",
+            "id": "c-1778525873803-3-0",
+            "title": "DP 23. Unbounded Knapsack",
+            "videoUrl": "https://www.youtube.com/watch?v=OgvOZ6OrJoY",
+            "docUrl": "https://www.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-4-1",
-            "title": "DP 26. Print Longest Common Subsequence | Dp on Strings",
+            "id": "c-1778525873803-3-1",
+            "title": "DP 24. Rod Cutting Problem",
+            "videoUrl": "https://www.youtube.com/watch?v=mO8XpGoJwuo",
+            "docUrl": "https://www.geeksforgeeks.org/problems/rod-cutting0840/1",
+            "priority": "medium",
+            "status": "done",
+            "notes": "",
+            "createdAt": 1778525873803
+          },
+          {
+            "id": "c-1778525873803-3-2",
+            "title": "DP 25. Longest Common Subsequence",
+            "videoUrl": "https://www.youtube.com/watch?v=NPZn9jBrX8U",
+            "docUrl": "https://leetcode.com/problems/longest-common-subsequence/description/",
+            "priority": "medium",
+            "status": "done",
+            "notes": "",
+            "createdAt": 1778525873803
+          },
+          {
+            "id": "c-1778525873803-3-3",
+            "title": "DP 26. Print Longest Common Subsequence",
             "videoUrl": "https://www.youtube.com/watch?v=-zI4mrF2Pb4",
             "docUrl": "",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-4-2",
-            "title": "DP 27. Longest Common Substring | DP on Strings 🔥",
+            "id": "c-1778525873803-3-4",
+            "title": "DP 27. Longest Common Substring",
             "videoUrl": "https://www.youtube.com/watch?v=_wP9mWNPL5w",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/longest-common-substring1452/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-4-3",
+            "id": "c-1778525873803-3-5",
             "title": "DP 28. Longest Palindromic Subsequence",
             "videoUrl": "https://www.youtube.com/watch?v=6i_T5kkfv4A",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/longest-palindromic-subsequence/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-4-4",
+            "id": "c-1778525873803-3-6",
             "title": "DP 29. Minimum Insertions to Make String Palindrome",
             "videoUrl": "https://www.youtube.com/watch?v=xPBLEj41rFU",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-4-5",
-            "title": "DP 30. Minimum Insertions/Deletions to Convert String A to String B",
+            "id": "c-1778525873803-3-7",
+            "title": "DP 30. Min Insertions/Deletions to Convert String A to B",
             "videoUrl": "https://www.youtube.com/watch?v=yMnH0jrir0Q",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/minimum-number-of-deletions-and-insertions0209/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-4-6",
-            "title": "DP 31. Shortest Common Supersequence | DP on Strings",
+            "id": "c-1778525873803-3-8",
+            "title": "DP 31. Shortest Common Supersequence",
             "videoUrl": "https://www.youtube.com/watch?v=xElxAuBcvsU",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/shortest-common-supersequence/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
-          },
+            "createdAt": 1778525873803
+          }
+        ]
+      },
+      {
+        "id": "tp-1778525873803-4",
+        "title": "Day 5 — Strings II & Stocks",
+        "contents": [
           {
-            "id": "c-1778507015037-4-7",
-            "title": "DP 32. Distinct Subsequences | 1D Array Optimisation Technique 🔥",
+            "id": "c-1778525873803-4-0",
+            "title": "DP 32. Distinct Subsequences",
             "videoUrl": "https://www.youtube.com/watch?v=nVG7eTiD2bY",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/distinct-subsequences/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-4-8",
-            "title": "DP 33. Edit Distance | Recursive to 1D Array Optimised Solution 🔥",
+            "id": "c-1778525873803-4-1",
+            "title": "DP 33. Edit Distance",
             "videoUrl": "https://www.youtube.com/watch?v=fJaKO8FbDdo",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/edit-distance/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-4-9",
-            "title": "DP 34. Wildcard Matching | Recursive to 1D Array Optimisation 🔥",
+            "id": "c-1778525873803-4-2",
+            "title": "DP 34. Wildcard Matching",
             "videoUrl": "https://www.youtube.com/watch?v=ZmlQ3vgAOMo",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/wildcard-pattern-matching/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
-          }
-        ]
-      },
-      {
-        "id": "tp-1778507015037-5",
-        "title": "DP on Stocks",
-        "contents": [
+            "createdAt": 1778525873803
+          },
           {
-            "id": "c-1778507015037-5-0",
-            "title": "DP 35. Best Time to Buy and Sell Stock | DP on Stocks 🔥",
+            "id": "c-1778525873803-4-3",
+            "title": "DP 35. Best Time to Buy and Sell Stock",
             "videoUrl": "https://www.youtube.com/watch?v=excAOvwF_Wk",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-5-1",
-            "title": "DP 36. Buy and Sell Stock - II | Recursion to Space Optimisation",
+            "id": "c-1778525873803-4-4",
+            "title": "DP 36. Buy and Sell Stock - II",
             "videoUrl": "https://www.youtube.com/watch?v=nGJmxkUJQGs",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-5-2",
-            "title": "DP 37. Buy and Sell Stocks III | Recursion to Space Optimisation",
+            "id": "c-1778525873803-4-5",
+            "title": "DP 37. Buy and Sell Stocks III",
             "videoUrl": "https://www.youtube.com/watch?v=-uQGzhYj8BQ",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-5-3",
-            "title": "DP 38. Buy and Stock Sell IV | Recursion to Space Optimisation",
+            "id": "c-1778525873803-4-6",
+            "title": "DP 38. Buy and Stock Sell IV",
             "videoUrl": "https://www.youtube.com/watch?v=IV1dHbk5CDc",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-5-4",
-            "title": "DP 39. Buy and Sell Stocks With Cooldown | Recursion to Space Optimisation",
+            "id": "c-1778525873803-4-7",
+            "title": "DP 39. Buy and Sell Stocks With Cooldown",
             "videoUrl": "https://www.youtube.com/watch?v=IGIe46xw3YY",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-5-5",
-            "title": "DP 40. Buy and Sell Stocks With Transaction Fee | Recursion to Space Optimisation",
+            "id": "c-1778525873803-4-8",
+            "title": "DP 40. Buy and Sell Stocks With Transaction Fee",
             "videoUrl": "https://www.youtube.com/watch?v=k4eK-vEmnKg",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           }
         ]
       },
       {
-        "id": "tp-1778507015037-6",
-        "title": "DP on LIS",
+        "id": "tp-1778525873803-5",
+        "title": "Day 6 — Longest Increasing Subsequence (LIS)",
         "contents": [
           {
-            "id": "c-1778507015037-6-0",
+            "id": "c-1778525873803-5-0",
             "title": "DP 41. Longest Increasing Subsequence | Memoization",
             "videoUrl": "https://www.youtube.com/watch?v=ekcwMsSIzVc",
-            "docUrl": "",
+            "docUrl": "https://leetcode.com/problems/longest-increasing-subsequence/description/",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-6-1",
-            "title": "DP 42. Printing Longest Increasing Subsequence | Tabulation | Algorithm",
+            "id": "c-1778525873803-5-1",
+            "title": "DP 42. Printing Longest Increasing Subsequence",
             "videoUrl": "https://www.youtube.com/watch?v=IFfYfonAFGc",
-            "docUrl": "",
+            "docUrl": "https://www.geeksforgeeks.org/problems/printing-longest-increasing-subsequence/1",
             "priority": "medium",
-            "status": "not-started",
+            "status": "done",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-6-2",
-            "title": "DP 43. Longest Increasing Subsequence | Binary Search | Intuition",
+            "id": "c-1778525873803-5-2",
+            "title": "DP 43. LIS | Binary Search Intuition",
             "videoUrl": "https://www.youtube.com/watch?v=on2hvxBXJH4",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-6-3",
-            "title": "DP 44. Largest Divisible Subset | Longest Increasing Subsequence",
+            "id": "c-1778525873803-5-3",
+            "title": "DP 44. Largest Divisible Subset",
             "videoUrl": "https://www.youtube.com/watch?v=gDuZwBW9VvM",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-6-4",
-            "title": "DP 45. Longest String Chain | Longest Increasing Subsequence | LIS",
+            "id": "c-1778525873803-5-4",
+            "title": "DP 45. Longest String Chain",
             "videoUrl": "https://www.youtube.com/watch?v=YY8iBaYcc4g",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-6-5",
-            "title": "DP 46. Longest Bitonic Subsequence | LIS",
+            "id": "c-1778525873803-5-5",
+            "title": "DP 46. Longest Bitonic Subsequence",
             "videoUrl": "https://www.youtube.com/watch?v=y4vN0WNdrlg",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-6-6",
+            "id": "c-1778525873803-5-6",
             "title": "DP 47. Number of Longest Increasing Subsequences",
             "videoUrl": "https://www.youtube.com/watch?v=cKVl1TFdNXg",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           }
         ]
       },
       {
-        "id": "tp-1778507015037-7",
-        "title": "MCM DP | Partition DP",
+        "id": "tp-1778525873803-6",
+        "title": "Day 7 — Partition DP & DP on Rectangles",
         "contents": [
           {
-            "id": "c-1778507015037-7-0",
-            "title": "DP 48. Matrix Chain Multiplication | MCM | Partition DP Starts 🔥",
+            "id": "c-1778525873803-6-0",
+            "title": "DP 48. Matrix Chain Multiplication | Partition DP Starts",
             "videoUrl": "https://www.youtube.com/watch?v=vRVfmbCFW7Y",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-7-1",
-            "title": "DP 49. Matrix Chain Multiplication | Bottom-Up | Tabulation",
+            "id": "c-1778525873803-6-1",
+            "title": "DP 49. MCM | Bottom-Up | Tabulation",
             "videoUrl": "https://www.youtube.com/watch?v=pDCXsbAw5Cg",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-7-2",
+            "id": "c-1778525873803-6-2",
             "title": "DP 50. Minimum Cost to Cut the Stick",
             "videoUrl": "https://www.youtube.com/watch?v=xwomavsC86c",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-7-3",
-            "title": "DP 51. Burst Balloons | Partition DP | Interactive G-Meet Session Update",
+            "id": "c-1778525873803-6-3",
+            "title": "DP 51. Burst Balloons",
             "videoUrl": "https://www.youtube.com/watch?v=Yz4LlDSlkns",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-7-4",
-            "title": "DP 52. Evaluate Boolean Expression to True | Partition DP",
+            "id": "c-1778525873803-6-4",
+            "title": "DP 52. Evaluate Boolean Expression to True",
             "videoUrl": "https://www.youtube.com/watch?v=MM7fXopgyjw",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-7-5",
-            "title": "DP 53. Palindrome Partitioning - II | Front Partition 🔥",
+            "id": "c-1778525873803-6-5",
+            "title": "DP 53. Palindrome Partitioning - II",
             "videoUrl": "https://www.youtube.com/watch?v=_H8V5hJUGd0",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
           },
           {
-            "id": "c-1778507015037-7-6",
-            "title": "DP 54. Partition Array for Maximum Sum | Front Partition 🔥",
+            "id": "c-1778525873803-6-6",
+            "title": "DP 54. Partition Array for Maximum Sum",
             "videoUrl": "https://www.youtube.com/watch?v=PhWWJmaKfMc",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
             "notes": "",
-            "createdAt": 1778507015037
+            "createdAt": 1778525873803
+          },
+          {
+            "id": "c-1778525873803-6-7",
+            "title": "DP 55. Maximum Rectangle Area with all 1's",
+            "videoUrl": "https://www.youtube.com/watch?v=tOylVCugy9k",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "",
+            "createdAt": 1778525873803
+          },
+          {
+            "id": "c-1778525873803-6-8",
+            "title": "DP 56. Count Square Submatrices with All Ones",
+            "videoUrl": "https://www.youtube.com/watch?v=auS1fynpnjo",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "",
+            "createdAt": 1778525873803
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s-1778526457884",
+    "name": "Graph Series",
+    "icon": "🕸️",
+    "color": "#3b82f6",
+    "description": "Comprehensive graph algorithms and interview problems",
+    "createdAt": 1778526457884,
+    "topics": [
+      {
+        "id": "tp-1778526457858-0",
+        "title": "Introduction & Graph Representation",
+        "contents": [
+          {
+            "id": "c-1778526457858-0-0",
+            "title": "G-1. Introduction to Graph | Types | Conventions",
+            "videoUrl": "https://www.youtube.com/watch?v=M3_pLsDdeuU",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Basics of graph theory and types",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-0-1",
+            "title": "G-2. Graph Representation in C++",
+            "videoUrl": "https://www.youtube.com/watch?v=3oI-34aPMWM",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Adjacency Matrix and List in C++",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-0-2",
+            "title": "G-3. Graph Representation in Java",
+            "videoUrl": "https://www.youtube.com/watch?v=OsNklbh9gYI",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Adjacency Matrix and List in Java",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-0-3",
+            "title": "G-4. What are Connected Components?",
+            "videoUrl": "https://www.youtube.com/watch?v=lea-Wl_uWXY",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Understanding disjoint parts of a graph",
+            "createdAt": 1778526457858
           }
         ]
       },
       {
-        "id": "tp-1778507015037-8",
-        "title": "DP on Squares / Rectangles",
+        "id": "tp-1778526457858-1",
+        "title": "Graph Traversals (BFS & DFS)",
         "contents": [
           {
-            "id": "c-1778507015037-8-0",
-            "title": "DP 55. Maximum Rectangle Area with all 1's | DP on Rectangles",
-            "videoUrl": "https://www.youtube.com/watch?v=tOylVCugy9k",
+            "id": "c-1778526457858-1-0",
+            "title": "G-5. Breadth-First Search (BFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=-tgVpUgsQ5k",
             "docUrl": "",
-            "priority": "medium",
+            "priority": "high",
             "status": "not-started",
-            "notes": "",
-            "createdAt": 1778507015037
+            "notes": "Level-order traversal logic",
+            "createdAt": 1778526457858
           },
           {
-            "id": "c-1778507015037-8-1",
-            "title": "DP 56. Count Square Submatrices with All Ones | DP on Rectangles 🔥",
-            "videoUrl": "https://www.youtube.com/watch?v=auS1fynpnjo",
+            "id": "c-1778526457858-1-1",
+            "title": "G-6. Depth-First Search (DFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=Qzf1a--rhp8",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Recursive traversal logic",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-2",
+            "title": "G-7. Number of Provinces",
+            "videoUrl": "https://www.youtube.com/watch?v=ACzkVtewUYA",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Connected components problem",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-3",
+            "title": "G-8. Number of Islands",
+            "videoUrl": "https://www.youtube.com/watch?v=muncqlKJrH0",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "BFS/DFS on a matrix grid",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-4",
+            "title": "G-9. Flood Fill Algorithm",
+            "videoUrl": "https://www.youtube.com/watch?v=C-2_uSRli8o",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Coloring connected regions",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-5",
+            "title": "G-10. Rotten Oranges",
+            "videoUrl": "https://www.youtube.com/watch?v=yf3oUhkvqA0",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Multi-source BFS",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-6",
+            "title": "G-11. Detect Cycle in Undirected Graph (BFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=BPlrALf1LDU",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Cycle detection using queue",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-7",
+            "title": "G-12. Detect Cycle in Undirected Graph (DFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=zQ3zgFypzX4",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Cycle detection using recursion",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-8",
+            "title": "G-13. Distance of Nearest Cell Having 1",
+            "videoUrl": "https://www.youtube.com/watch?v=edXdVwkYHF8",
             "docUrl": "",
             "priority": "medium",
             "status": "not-started",
-            "notes": "",
-            "createdAt": 1778507015037
+            "notes": "BFS from multiple targets",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-9",
+            "title": "G-14. Surrounded Regions | Replace O's with X's",
+            "videoUrl": "https://www.youtube.com/watch?v=BtdgAys4yMk",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Boundary DFS strategy",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-10",
+            "title": "G-15. Number of Enclaves",
+            "videoUrl": "https://www.youtube.com/watch?v=rxKcepXQgU4",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Grid traversal application",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-11",
+            "title": "G-16. Number of Distinct Islands",
+            "videoUrl": "https://www.youtube.com/watch?v=7zmgQSJghpo",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Using sets to track island shapes",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-12",
+            "title": "G-17. Bipartite Graph (BFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=-vu34sct1g8",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Two-coloring problem using BFS",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-1-13",
+            "title": "G-18. Bipartite Graph (DFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=KG5YFfR0j8A",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Two-coloring problem using DFS",
+            "createdAt": 1778526457858
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526457858-2",
+        "title": "Topological Sort & Directed Graphs",
+        "contents": [
+          {
+            "id": "c-1778526457858-2-0",
+            "title": "G-19. Detect Cycle in Directed Graph (DFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=9twcmtQj4DU",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Using recursion stack",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-2-1",
+            "title": "G-20. Find Eventual Safe States (DFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=uRbJ1OF9aYM",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Cycle detection application",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-2-2",
+            "title": "G-21. Topological Sort (DFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=5lZ0iJMrUMk",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Ordering tasks based on dependencies",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-2-3",
+            "title": "G-22. Kahn's Algorithm (Topological Sort BFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=73sneFXuTEg",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Indegree-based topo sort",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-2-4",
+            "title": "G-23. Detect Cycle in Directed Graph (BFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=iTBaI90lpDQ",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Kahn's Algorithm variation",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-2-5",
+            "title": "G-24. Course Schedule I and II",
+            "videoUrl": "https://www.youtube.com/watch?v=WAOfKpxYHR8",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Real-world topo sort application",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-2-6",
+            "title": "G-25. Find Eventual Safe States (BFS)",
+            "videoUrl": "https://www.youtube.com/watch?v=2gtg3VsDGyc",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Reverse graph + Kahn's Algorithm",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-2-7",
+            "title": "G-26. Alien Dictionary",
+            "videoUrl": "https://www.youtube.com/watch?v=U3N_je7tWAs",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Hard problem on topological sort",
+            "createdAt": 1778526457858
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526457858-3",
+        "title": "Shortest Path Algorithms",
+        "contents": [
+          {
+            "id": "c-1778526457858-3-0",
+            "title": "G-27. Shortest Path in Directed Acyclic Graph (DAG)",
+            "videoUrl": "https://www.youtube.com/watch?v=ZUFQfFaU-8U",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Using topo sort for optimization",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-3-1",
+            "title": "G-28. Shortest Path in Undirected Graph (Unit Weights)",
+            "videoUrl": "https://www.youtube.com/watch?v=C4gxoTaI71U",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Basic BFS for shortest path",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-3-2",
+            "title": "G-29. Word Ladder - I",
+            "videoUrl": "https://www.youtube.com/watch?v=tRPda0rcf8E",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Shortest path in string transitions",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-3-3",
+            "title": "G-30. Word Ladder - II",
+            "videoUrl": "https://www.youtube.com/watch?v=DREutrv2XD0",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Finding all shortest paths",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-3-4",
+            "title": "G-31. Word Ladder - II (Optimized)",
+            "videoUrl": "https://www.youtube.com/watch?v=AD4SFl7tu7I",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Performance tuning for Word Ladder",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-3-5",
+            "title": "G-32. Dijkstra's Algorithm (Priority Queue)",
+            "videoUrl": "https://www.youtube.com/watch?v=V6H1qAeB-l4",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Standard shortest path for weighted graphs",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-3-6",
+            "title": "G-33. Dijkstra's Algorithm (Set)",
+            "videoUrl": "https://www.youtube.com/watch?v=PATgNiuTP20",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Alternative implementation using Set",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457858-3-7",
+            "title": "G-34. Dijkstra's Complexity Derivation",
+            "videoUrl": "https://www.youtube.com/watch?v=3dINsjyfooY",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Time and Space complexity analysis",
+            "createdAt": 1778526457858
+          },
+          {
+            "id": "c-1778526457859-3-8",
+            "title": "G-35. Print Shortest Path (Dijkstra)",
+            "videoUrl": "https://www.youtube.com/watch?v=rp1SMw7HSO8",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Using parent array to backtrack path",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-3-9",
+            "title": "G-36. Shortest Distance in a Binary Maze",
+            "videoUrl": "https://www.youtube.com/watch?v=U5Mw4eyUmw4",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Dijkstra application on grid",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-3-10",
+            "title": "G-37. Path With Minimum Effort",
+            "videoUrl": "https://www.youtube.com/watch?v=0ytpZyiZFhA",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Min-max problem variation",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-3-11",
+            "title": "G-38. Cheapest Flights Within K Stops",
+            "videoUrl": "https://www.youtube.com/watch?v=9XybHVqTHcQ",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Dijkstra with constraints",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-3-12",
+            "title": "G-39. Minimum Multiplications to Reach End",
+            "videoUrl": "https://www.youtube.com/watch?v=_BvEJ3VIDWw",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "BFS/Dijkstra in state space",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-3-13",
+            "title": "G-40. Number of Ways to Arrive at Destination",
+            "videoUrl": "https://www.youtube.com/watch?v=_-0mx0SmYxA",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Dijkstra + DP counting",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-3-14",
+            "title": "G-41. Bellman Ford Algorithm",
+            "videoUrl": "https://www.youtube.com/watch?v=0vVofAhAYjc",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Negative weights and negative cycle detection",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-3-15",
+            "title": "G-42. Floyd Warshall Algorithm",
+            "videoUrl": "https://www.youtube.com/watch?v=YbY8cVwWAvw",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "All-pairs shortest path",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-3-16",
+            "title": "G-43. Find City With Smallest Neighbours",
+            "videoUrl": "https://www.youtube.com/watch?v=PwMVNSJ5SLI",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Floyd Warshall application",
+            "createdAt": 1778526457859
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526457859-4",
+        "title": "MST & Disjoint Set Union (DSU)",
+        "contents": [
+          {
+            "id": "c-1778526457859-4-0",
+            "title": "G-44. Minimum Spanning Tree Theory",
+            "videoUrl": "https://www.youtube.com/watch?v=ZSPjZuZWCME",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Introduction to MST concepts",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-1",
+            "title": "G-45. Prim's Algorithm",
+            "videoUrl": "https://www.youtube.com/watch?v=mJcZjjKzeqk",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Greedy MST construction",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-2",
+            "title": "G-46. Disjoint Set | Union by Rank/Size",
+            "videoUrl": "https://www.youtube.com/watch?v=aBxjDBC4M1U",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Path compression and union optimizations",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-3",
+            "title": "G-47. Kruskal's Algorithm",
+            "videoUrl": "https://www.youtube.com/watch?v=DMnDM_sxVig",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Edge-based MST using DSU",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-4",
+            "title": "G-48. Number of Provinces (DSU)",
+            "videoUrl": "https://www.youtube.com/watch?v=ZGr5nX-Gi6Y",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Solving connectivity with DSU",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-5",
+            "title": "G-49. Number of Operations to Make Network Connected",
+            "videoUrl": "https://www.youtube.com/watch?v=FYrl7iz9_ZU",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Finding extra edges using DSU",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-6",
+            "title": "G-50. Accounts Merge",
+            "videoUrl": "https://www.youtube.com/watch?v=FMwpt_aQOGw",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Advanced DSU problem",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-7",
+            "title": "G-51. Number of Islands - II (Online Queries)",
+            "videoUrl": "https://www.youtube.com/watch?v=Rn6B-Q4SNyA",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Dynamic connectivity in grid",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-8",
+            "title": "G-52. Making a Large Island",
+            "videoUrl": "https://www.youtube.com/watch?v=lgiz0Oup6gM",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Grid + DSU optimization",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-4-9",
+            "title": "G-53. Most Stones Removed with Same Row or Column",
+            "videoUrl": "https://www.youtube.com/watch?v=OwMNX8SPavM",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "DSU on rows and columns",
+            "createdAt": 1778526457859
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526457859-5",
+        "title": "Advanced Graph Algorithms",
+        "contents": [
+          {
+            "id": "c-1778526457859-5-0",
+            "title": "G-54. Strongly Connected Components (Kosaraju's)",
+            "videoUrl": "https://www.youtube.com/watch?v=R6uoSjZ2imo",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Algorithm for finding SCCs",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-5-1",
+            "title": "G-55. Bridges in Graph (Tarjan's)",
+            "videoUrl": "https://www.youtube.com/watch?v=qrAub5z8FeA",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Finding critical edges",
+            "createdAt": 1778526457859
+          },
+          {
+            "id": "c-1778526457859-5-2",
+            "title": "G-56. Articulation Point in Graph",
+            "videoUrl": "https://www.youtube.com/watch?v=j1QDfU21iZk",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Finding critical vertices",
+            "createdAt": 1778526457859
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s-1778526764717",
+    "name": "Trie Series",
+    "icon": "🌲",
+    "color": "#10b981",
+    "description": "Trie implementation and interview problems",
+    "createdAt": 1778526764717,
+    "topics": [
+      {
+        "id": "tp-1778526764696-0",
+        "title": "Trie Basics & Implementation",
+        "contents": [
+          {
+            "id": "c-1778526764696-0-0",
+            "title": "L1. Implement TRIE | INSERT | SEARCH | STARTSWITH",
+            "videoUrl": "https://www.youtube.com/watch?v=dBGUmUQhjaM",
+            "docUrl": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Foundational video on Trie insertion and prefix searching",
+            "createdAt": 1778526764696
+          },
+          {
+            "id": "c-1778526764696-0-1",
+            "title": "L2. Implement Trie-2 | INSERT | countWordsEqualTo() | countWordsStartingWith()",
+            "videoUrl": "https://www.youtube.com/watch?v=K5pcpkEMCN0",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Advanced Trie operations using word and prefix counters",
+            "createdAt": 1778526764696
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526764696-1",
+        "title": "String Problems using Trie",
+        "contents": [
+          {
+            "id": "c-1778526764696-1-0",
+            "title": "L3. Longest Word With All Prefixes | Complete String",
+            "videoUrl": "https://www.youtube.com/watch?v=AWnBa91lThI",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Problem-solving focusing on prefix properties",
+            "createdAt": 1778526764696
+          },
+          {
+            "id": "c-1778526764696-1-1",
+            "title": "L4. Number of Distinct Substrings in a String",
+            "videoUrl": "https://www.youtube.com/watch?v=RV0QeTyHZxo",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Using Trie nodes to count unique substrings efficiently",
+            "createdAt": 1778526764696
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526764696-2",
+        "title": "Trie with Bit Manipulation",
+        "contents": [
+          {
+            "id": "c-1778526764696-2-0",
+            "title": "L5. Bit PreRequisites for TRIE Problems",
+            "videoUrl": "https://www.youtube.com/watch?v=5iyuU4hQFrw",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Essential bitwise concepts for advanced Trie problems",
+            "createdAt": 1778526764696
+          },
+          {
+            "id": "c-1778526764696-2-1",
+            "title": "L6. Maximum XOR of Two Numbers in an Array",
+            "videoUrl": "https://www.youtube.com/watch?v=EIhAwfHubE8",
+            "docUrl": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Applying Trie to bit manipulation for optimal XOR results",
+            "createdAt": 1778526764696
+          },
+          {
+            "id": "c-1778526764696-2-2",
+            "title": "L7. Maximum XOR With an Element From Array | Queries",
+            "videoUrl": "https://www.youtube.com/watch?v=Q8LhG9Pi5KM",
+            "docUrl": "https://leetcode.com/problems/maximum-xor-with-an-element-from-array-queries/",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Solving offline queries with Trie and sorting",
+            "createdAt": 1778526764696
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s-1778526995465",
+    "name": "Frontend System Design",
+    "icon": "🚀",
+    "color": "#ef4444",
+    "description": "Comprehensive guide to frontend system design, performance, and patterns",
+    "createdAt": 1778526995465,
+    "topics": [
+      {
+        "id": "tp-1778526995446-0",
+        "title": "Comprehensive Overviews",
+        "contents": [
+          {
+            "id": "c-1778526995446-0-0",
+            "title": "Season 1: Browser & Communication Techniques",
+            "videoUrl": "https://www.youtube.com/watch?v=M2RpzmyKfvQ",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Beginner to advanced guide on browser internals and communication",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-0-1",
+            "title": "Season 2: Performance & Optimization Techniques",
+            "videoUrl": "https://www.youtube.com/watch?v=zAEy0jchvH8",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Deep dive into frontend performance metrics and strategies",
+            "createdAt": 1778526995446
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526995446-1",
+        "title": "React Design Patterns",
+        "contents": [
+          {
+            "id": "c-1778526995446-1-0",
+            "title": "Ep1 React HOC pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=yepZDprpf0Y",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Higher-Order Components pattern in React",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-1-1",
+            "title": "Ep2 Render Props Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=ix4z_jUrQpQ",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Sharing logic between components using props",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-1-2",
+            "title": "Ep3 React Compound Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=qDXbZMNTwGw",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Component composition using the Tabs example",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-1-3",
+            "title": "Ep4 React Hooks Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=P9q52eRB0yI",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Building and using custom hooks effectively",
+            "createdAt": 1778526995446
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526995446-2",
+        "title": "Rendering Patterns",
+        "contents": [
+          {
+            "id": "c-1778526995446-2-0",
+            "title": "Ep1 What is Pre-render?",
+            "videoUrl": "https://www.youtube.com/watch?v=fRgAI3FiYHc",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Introduction to rendering concepts",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-2-1",
+            "title": "Ep2 All about CSR and SSR",
+            "videoUrl": "https://www.youtube.com/watch?v=PyY8yI47Kqw",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Client-Side Rendering vs Server-Side Rendering",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-2-2",
+            "title": "Ep3 Static Site Generation (SSG)",
+            "videoUrl": "https://www.youtube.com/watch?v=HLz3aZHOjjk",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "SSG with and without data fetching in Next.js",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-2-3",
+            "title": "Ep4 Incremental Site Regeneration (iSG)",
+            "videoUrl": "https://www.youtube.com/watch?v=a96xrB27jj4",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Optimizing static content updates",
+            "createdAt": 1778526995446
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526995446-3",
+        "title": "Network & Asset Optimization",
+        "contents": [
+          {
+            "id": "c-1778526995446-3-0",
+            "title": "Ep1 Load JS Asynchronously",
+            "videoUrl": "https://www.youtube.com/watch?v=hEEldnT00pU",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Optimizing script loading for better performance",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-3-1",
+            "title": "Ep2 Lazy Load Images",
+            "videoUrl": "https://www.youtube.com/watch?v=D809Vcki39U",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Improving initial load time by deferring image loading",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-3-2",
+            "title": "Ep3 Preload, Prefetch, Preconnect",
+            "videoUrl": "https://www.youtube.com/watch?v=PLYIrkT4OCg",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Advanced resource prioritization hints",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-3-3",
+            "title": "Ep4 Load CSS Asynchronously",
+            "videoUrl": "https://www.youtube.com/watch?v=rNT-Fv4w_3s",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Non-blocking CSS loading techniques",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-3-4",
+            "title": "Ep5 Critical Rendering Path Explained",
+            "videoUrl": "https://www.youtube.com/watch?v=ZajAj2mZ4pw",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Understanding how browsers parse and paint a page",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-3-5",
+            "title": "Ep1 Progressive Images in React",
+            "videoUrl": "https://www.youtube.com/watch?v=40jb1oTUXQI",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Techniques for gradual image loading",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-3-6",
+            "title": "Ep2 Responsive Images",
+            "videoUrl": "https://www.youtube.com/watch?v=p7UaHxRXYvI",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Serving different images based on device screen size",
+            "createdAt": 1778526995446
+          }
+        ]
+      },
+      {
+        "id": "tp-1778526995446-4",
+        "title": "Machine Coding & System Design",
+        "contents": [
+          {
+            "id": "c-1778526995446-4-0",
+            "title": "Infinite Scrolling Configurable Component",
+            "videoUrl": "https://www.youtube.com/watch?v=v_fwMoTVmqw",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Swiggy Machine Coding Round practice in React",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-4-1",
+            "title": "[System Design] Image Carousel",
+            "videoUrl": "https://www.youtube.com/watch?v=AmvlTkh5_b4",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Designing a scalable carousel component",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-4-2",
+            "title": "[System Design] E-commerce Platform",
+            "videoUrl": "https://www.youtube.com/watch?v=G8ynqFGNUI0",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Architecting a full e-commerce frontend system",
+            "createdAt": 1778526995446
+          },
+          {
+            "id": "c-1778526995446-4-3",
+            "title": "[System Design] Poll Widget",
+            "videoUrl": "https://www.youtube.com/watch?v=u_ha32CT6pk",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Designing an embeddable widget for third-party websites",
+            "createdAt": 1778526995446
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "s-1778527926647",
+    "name": "15 Days of React Design Patterns",
+    "icon": "⚛️",
+    "color": "#61dafb",
+    "description": "Master clean, scalable, and maintainable React code through 15+ design patterns",
+    "createdAt": 1778527926647,
+    "topics": [
+      {
+        "id": "tp-1778527926582-0",
+        "title": "Introduction & Structural Patterns",
+        "contents": [
+          {
+            "id": "c-1778527926582-0-0",
+            "title": "Why React Needs Design Patterns + Crash Course",
+            "videoUrl": "https://www.youtube.com/watch?v=OWi31QoHqNk",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Introduction to code smells like prop drilling and bloated components",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-0-1",
+            "title": "10-Min React Crash Course",
+            "videoUrl": "https://www.youtube.com/watch?v=1UHbhikwg-s",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Essential React basics to follow the patterns series",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-0-2",
+            "title": "Day 01: Container-Presenter Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=jPMCouXondI",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Separating business logic from UI presentation",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-0-3",
+            "title": "Day 02: Controlled & Uncontrolled Forms",
+            "videoUrl": "https://www.youtube.com/watch?v=LglWulOqh6k",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Comparing different strategies for form state management",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-0-4",
+            "title": "Day 03: Compound Components Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=tIdJj0n1mg4",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Building flexible components through composition",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-0-5",
+            "title": "Day 04: Render Props Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=spDQ4oCKSPY",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Sharing logic between components without duplication",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-0-6",
+            "title": "Day 05: Higher Order Components (HOC)",
+            "videoUrl": "https://www.youtube.com/watch?v=fhwvqTry_Vg",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Using higher-order functions to enhance components",
+            "createdAt": 1778527926582
+          }
+        ]
+      },
+      {
+        "id": "tp-1778527926582-1",
+        "title": "Advanced Logic & State Management",
+        "contents": [
+          {
+            "id": "c-1778527926582-1-0",
+            "title": "Day 06: Custom Hook Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=POWMosrdamI",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Extracting reusable logic into custom React hooks",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-1-1",
+            "title": "Day 07: Provider Pattern (Context API)",
+            "videoUrl": "https://www.youtube.com/watch?v=x03yX-yNxas",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Managing global state and avoiding prop drilling",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-1-2",
+            "title": "Day 08: Optimistic UI Pattern (useOptimistic)",
+            "videoUrl": "https://www.youtube.com/watch?v=vZswuz3NTgs",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "React 19 pattern for immediate UI feedback",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-1-3",
+            "title": "Day 09/10: State Reducer Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=ociC3llkLHk",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Building powerful and reusable complex state logic",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-1-4",
+            "title": "Day 11: Pub-Sub vs Observer Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=G8Mk6lsSOcw",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "Deep dive into event-driven architecture in React",
+            "createdAt": 1778527926582
+          }
+        ]
+      },
+      {
+        "id": "tp-1778527926582-2",
+        "title": "Performance Optimization",
+        "contents": [
+          {
+            "id": "c-1778527926582-2-0",
+            "title": "Ultimate Performance Guide (Part 1)",
+            "videoUrl": "https://www.youtube.com/watch?v=HJFDXKkz67M",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Techniques to stop useless re-renders",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-2-1",
+            "title": "Ultimate Performance Guide (Part 2)",
+            "videoUrl": "https://www.youtube.com/watch?v=_LBgDy0j-Os",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Advanced optimization strategies for large apps",
+            "createdAt": 1778527926582
+          }
+        ]
+      },
+      {
+        "id": "tp-1778527926582-3",
+        "title": "Component Architecture & Resilience",
+        "contents": [
+          {
+            "id": "c-1778527926582-3-0",
+            "title": "Day 14: React Slot Pattern",
+            "videoUrl": "https://www.youtube.com/watch?v=tfZ85e9N8RA",
+            "docUrl": "",
+            "priority": "medium",
+            "status": "not-started",
+            "notes": "The cleanest way to build flexible, slot-based components",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-3-1",
+            "title": "Day 15: Patterns for Instant Scalability",
+            "videoUrl": "https://www.youtube.com/watch?v=25IKfl9jR7A",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Architecture choices that make apps easier to grow",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-3-2",
+            "title": "Refactoring Pattern: Cleaning Messy Components",
+            "videoUrl": "https://www.youtube.com/watch?v=0qxF4jb-eUg",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Strategies to simplify complex component code",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-3-3",
+            "title": "Resilience: Saving Apps From Crashing",
+            "videoUrl": "https://www.youtube.com/watch?v=tY8rhkLdr2A",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Error handling and fault-tolerant component design",
+            "createdAt": 1778527926582
+          },
+          {
+            "id": "c-1778527926582-3-4",
+            "title": "React Suspense: Fixing Data Fetching Hell",
+            "videoUrl": "https://www.youtube.com/watch?v=HSVC5-d5sjY",
+            "docUrl": "",
+            "priority": "high",
+            "status": "not-started",
+            "notes": "Modern orchestration of loading states and data",
+            "createdAt": 1778527926582
           }
         ]
       }

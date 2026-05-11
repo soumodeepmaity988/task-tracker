@@ -1,10 +1,11 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Sidebar from '@/components/Sidebar';
 import { useApp } from '@/contexts/AppContext';
-import { Plus, X, Pencil, Trash2, Target, CheckCircle2, Link as LinkIcon } from 'lucide-react';
-import { msToDateInput, dateInputToMs, fmtRelative, isOverdue } from '@/lib/dateUtils';
+import { Plus, X, Pencil, Trash2, Target, CheckCircle2, Link as LinkIcon, Circle, Loader, ArrowRight, RotateCcw } from 'lucide-react';
+import { msToDateInput, dateInputToMs, fmtRelative, isOverdue, fmtDateLong } from '@/lib/dateUtils';
 import Link from 'next/link';
+import Markdown from '@/components/Markdown';
 
 const COLORS = ['#4f8ef7', '#8b5cf6', '#2dd4bf', '#ec4899', '#f97316', '#22c55e', '#eab308', '#ef4444'];
 const ICONS = ['🎯', '🚀', '💼', '📚', '💪', '✍️', '🧠', '🏆'];
@@ -109,9 +110,172 @@ function GoalModal({ initial, boards, onSave, onClose }) {
   );
 }
 
+const STATUS_LABEL = { backlog: 'Backlog', todo: 'To Do', 'in-progress': 'In Progress', done: 'Done' };
+const STATUS_COLOR = { backlog: '#8b5cf6', todo: '#4f8ef7', 'in-progress': '#eab308', done: '#22c55e' };
+const P_COLOR = { low: 'tag-green', medium: 'tag-yellow', high: 'tag-orange', critical: 'tag-red' };
+
+function GoalDetailModal({ goal, linked, onClose, onEdit, onDelete, onToggleDone, onUnlink }) {
+  useEffect(() => {
+    const h = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [onClose]);
+
+  const grouped = useMemo(() => {
+    const out = { backlog: [], todo: [], 'in-progress': [], done: [] };
+    linked.forEach(t => { (out[t.status || 'todo'] ||= []).push(t); });
+    return out;
+  }, [linked]);
+  const done = linked.filter(t => t.status === 'done').length;
+  const total = linked.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+
+  return (
+    <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="modal" style={{ maxWidth: 700, width: '92%' }}>
+        <div className="modal-header" style={{ borderLeft: `4px solid ${goal.color}`, paddingLeft: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1, minWidth: 0 }}>
+            <span style={{ fontSize: 26 }}>{goal.icon}</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div className="modal-title" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{goal.name}</div>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 11, color: 'var(--text-muted)', marginTop: 3 }}>
+                <span className={`tag ${goal.status === 'done' ? 'tag-green' : goal.status === 'abandoned' ? 'tag-gray' : 'tag-blue'}`} style={{ fontSize: 10 }}>{goal.status}</span>
+                {goal.dueDate && (
+                  <span style={{ color: isOverdue(goal.dueDate) && goal.status === 'active' ? 'var(--accent-red)' : undefined }}>
+                    📅 {fmtRelative(goal.dueDate)} · {fmtDateLong(goal.dueDate)}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <button className="btn btn-ghost btn-icon btn-sm" onClick={onClose}><X size={16} /></button>
+        </div>
+
+        <div className="modal-body">
+          {goal.description ? (
+            <div style={{ marginBottom: 18 }}><Markdown>{goal.description}</Markdown></div>
+          ) : (
+            <p style={{ fontSize: 12, color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: 18 }}>No description.</p>
+          )}
+
+          {/* Progress */}
+          <div style={{ marginBottom: 18 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+              <span style={{ fontSize: 13, fontWeight: 600 }}>Progress</span>
+              <span style={{ fontSize: 12, color: pct === 100 ? 'var(--accent-green)' : 'var(--text-secondary)', fontWeight: 700 }}>
+                {done}/{total} tasks · {pct}%
+              </span>
+            </div>
+            <div className="progress-bar" style={{ height: 8 }}>
+              <div className="progress-fill" style={{ width: `${pct}%`, background: goal.color }} />
+            </div>
+            {total > 0 && (
+              <div style={{ display: 'flex', gap: 12, marginTop: 8, fontSize: 11, color: 'var(--text-muted)' }}>
+                {Object.entries(grouped).map(([status, list]) => list.length > 0 && (
+                  <span key={status} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: STATUS_COLOR[status] }} />
+                    {STATUS_LABEL[status]}: <strong style={{ color: 'var(--text-secondary)' }}>{list.length}</strong>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Linked tasks */}
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>Linked tasks ({total})</div>
+            {total === 0 ? (
+              <div style={{ padding: 18, borderRadius: 10, border: '1px dashed var(--border)', color: 'var(--text-muted)', fontSize: 12, fontStyle: 'italic', textAlign: 'center' }}>
+                No tasks linked yet. Click <strong>Edit</strong> below to add tasks.
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {['in-progress', 'todo', 'backlog', 'done'].flatMap(status =>
+                  grouped[status].map(t => (
+                    <div
+                      key={t.id}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 10,
+                        padding: '8px 12px',
+                        background: 'var(--bg-card)',
+                        border: '1px solid var(--border)',
+                        borderLeft: `3px solid ${STATUS_COLOR[status]}`,
+                        borderRadius: 8,
+                      }}
+                    >
+                      {status === 'done'
+                        ? <CheckCircle2 size={14} color="var(--accent-green)" />
+                        : status === 'in-progress'
+                          ? <Loader size={14} color="var(--accent-yellow)" />
+                          : <Circle size={14} color={STATUS_COLOR[status]} />}
+                      <Link
+                        href={`/tasks/${t._board.id}/${t.id}`}
+                        onClick={onClose}
+                        style={{
+                          flex: 1, fontSize: 13, fontWeight: 500,
+                          color: 'var(--text-primary)',
+                          textDecoration: status === 'done' ? 'line-through' : 'none',
+                          opacity: status === 'done' ? 0.6 : 1,
+                          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {t.title}
+                      </Link>
+                      {t.priority && <span className={`tag ${P_COLOR[t.priority]}`} style={{ fontSize: 10 }}>{t.priority}</span>}
+                      <span style={{ fontSize: 11, color: 'var(--text-muted)', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 140 }}>
+                        {t._board.name}
+                      </span>
+                      <button
+                        className="task-card-action-btn"
+                        title="Unlink from goal"
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); onUnlink(t.id); }}
+                      >
+                        <X size={11} />
+                      </button>
+                      <Link
+                        href={`/tasks/${t._board.id}/${t.id}`}
+                        onClick={onClose}
+                        title="Open task"
+                        style={{ display: 'flex', alignItems: 'center', color: 'var(--text-muted)', textDecoration: 'none' }}
+                      >
+                        <ArrowRight size={13} />
+                      </Link>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="modal-footer" style={{ justifyContent: 'space-between' }}>
+          <button className="btn btn-ghost" onClick={onDelete} style={{ color: 'var(--accent-red)' }}>
+            <Trash2 size={13} /> Delete
+          </button>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {goal.status === 'done' ? (
+              <button className="btn btn-ghost" onClick={onToggleDone}>
+                <RotateCcw size={13} /> Reopen
+              </button>
+            ) : (
+              <button className="btn btn-ghost" onClick={onToggleDone}>
+                <CheckCircle2 size={13} /> Mark done
+              </button>
+            )}
+            <button className="btn btn-primary" onClick={onEdit}>
+              <Pencil size={13} /> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function GoalsPage() {
   const { goals, boards, createGoal, updateGoal, deleteGoal } = useApp();
   const [modal, setModal] = useState(null);
+  const [detailId, setDetailId] = useState(null);
   const [filter, setFilter] = useState('active');
 
   const enriched = useMemo(() => {
@@ -159,12 +323,19 @@ export default function GoalsPage() {
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 14 }}>
               {visible.map(g => (
-                <div key={g.id} className="glass-card" style={{ padding: 16, borderLeft: `4px solid ${g.color}` }}>
+                <div
+                  key={g.id}
+                  className="glass-card"
+                  style={{ padding: 16, borderLeft: `4px solid ${g.color}`, cursor: 'pointer', transition: 'border-color 0.15s, background 0.15s' }}
+                  onClick={() => setDetailId(g.id)}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-card-hover)'}
+                  onMouseLeave={e => e.currentTarget.style.background = ''}
+                >
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8, marginBottom: 8 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ fontSize: 22 }}>{g.icon}</span>
-                      <div>
-                        <div style={{ fontWeight: 700, fontSize: 14 }}>{g.name}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0, flex: 1 }}>
+                      <span style={{ fontSize: 22, flexShrink: 0 }}>{g.icon}</span>
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ fontWeight: 700, fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{g.name}</div>
                         {g.dueDate && (
                           <div style={{ fontSize: 11, color: isOverdue(g.dueDate) && g.status === 'active' ? 'var(--accent-red)' : 'var(--text-muted)' }}>
                             📅 {fmtRelative(g.dueDate)}
@@ -172,12 +343,16 @@ export default function GoalsPage() {
                         )}
                       </div>
                     </div>
-                    <div style={{ display: 'flex', gap: 4 }}>
-                      <button className="task-card-action-btn" onClick={() => setModal(g)}><Pencil size={12} /></button>
-                      <button className="task-card-action-btn" onClick={() => { if (confirm(`Delete "${g.name}"?`)) deleteGoal(g.id); }}><Trash2 size={12} /></button>
+                    <div style={{ display: 'flex', gap: 4 }} onClick={e => e.stopPropagation()}>
+                      <button className="task-card-action-btn" title="Edit" onClick={() => setModal(g)}><Pencil size={12} /></button>
+                      <button className="task-card-action-btn" title="Delete" onClick={() => { if (confirm(`Delete "${g.name}"?`)) deleteGoal(g.id); }}><Trash2 size={12} /></button>
                     </div>
                   </div>
-                  {g.description && <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 10, lineHeight: 1.5 }}>{g.description}</p>}
+                  {g.description && (
+                    <div style={{ marginBottom: 10, maxHeight: 60, overflow: 'hidden', maskImage: 'linear-gradient(180deg, #000 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(180deg, #000 60%, transparent 100%)' }}>
+                      <Markdown compact>{g.description}</Markdown>
+                    </div>
+                  )}
                   {g._total > 0 ? (
                     <>
                       <div className="progress-bar" style={{ height: 6 }}>
@@ -188,7 +363,7 @@ export default function GoalsPage() {
                   ) : (
                     <div style={{ fontSize: 11, color: 'var(--text-muted)', fontStyle: 'italic' }}>No linked tasks yet</div>
                   )}
-                  <div style={{ marginTop: 10, display: 'flex', gap: 6 }}>
+                  <div style={{ marginTop: 10, display: 'flex', gap: 6 }} onClick={e => e.stopPropagation()}>
                     {g.status !== 'done' && (
                       <button className="btn btn-ghost btn-sm" style={{ fontSize: 11 }} onClick={() => updateGoal(g.id, { status: 'done' })}>
                         <CheckCircle2 size={12} /> Mark done
@@ -199,9 +374,9 @@ export default function GoalsPage() {
                         Reopen
                       </button>
                     )}
-                    <Link href="/" className="btn btn-ghost btn-sm" style={{ fontSize: 11 }}>
-                      <LinkIcon size={11} /> {g._total}
-                    </Link>
+                    <button className="btn btn-ghost btn-sm" style={{ fontSize: 11 }} onClick={() => setDetailId(g.id)} title="View linked tasks">
+                      <LinkIcon size={11} /> {g._total} task{g._total === 1 ? '' : 's'}
+                    </button>
                   </div>
                 </div>
               ))}
@@ -217,6 +392,23 @@ export default function GoalsPage() {
           onClose={() => setModal(null)}
         />
       )}
+      {detailId && (() => {
+        const g = enriched.find(x => x.id === detailId);
+        if (!g) return null;
+        return (
+          <GoalDetailModal
+            goal={g}
+            linked={g._linked}
+            onClose={() => setDetailId(null)}
+            onEdit={() => { setModal(g); setDetailId(null); }}
+            onDelete={() => {
+              if (confirm(`Delete "${g.name}"?`)) { deleteGoal(g.id); setDetailId(null); }
+            }}
+            onToggleDone={() => updateGoal(g.id, { status: g.status === 'done' ? 'active' : 'done' })}
+            onUnlink={(taskId) => updateGoal(g.id, { linkedTaskIds: (g.linkedTaskIds || []).filter(id => id !== taskId) })}
+          />
+        );
+      })()}
     </div>
   );
 }

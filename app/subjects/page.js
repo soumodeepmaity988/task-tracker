@@ -5,6 +5,7 @@ import { useApp } from '@/contexts/AppContext';
 import Link from 'next/link';
 import { Plus, X, Pencil, Trash2, Upload } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { subjectProgress } from '@/lib/subject';
 
 const COLORS = ['#4f8ef7', '#8b5cf6', '#2dd4bf', '#ec4899', '#f97316', '#22c55e', '#eab308', '#ef4444'];
 const ICONS = ['📚', '⚛️', '🧮', '🗄️', '🎨', '🔐', '🧪', '📐', '🌐', '🤖', '📊', '🔧'];
@@ -260,9 +261,10 @@ export default function SubjectsPage() {
           ) : (
             <div className="subjects-grid">
               {filtered.map(s => {
-                const total = s.topics?.length || 0;
-                const done = s.topics?.filter(t => t.status === 'done').length || 0;
-                const pct = total ? Math.round((done / total) * 100) : 0;
+                const prog = subjectProgress(s);
+                const total = prog.topics.total;
+                const done = prog.topics.done;
+                const pct = prog.pct;
                 return (
                   <div key={s.id} style={{ position: 'relative' }}>
                     <Link href={`/subjects/${s.id}`} className="subject-card">

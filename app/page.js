@@ -6,6 +6,7 @@ import Link from 'next/link';
 import ActivityHeatmap from '@/components/ActivityHeatmap';
 import { OnTimeChart, GoalsChart, CompletionTrendChart, WeeklyReviewSummary, HabitConsistencyChart } from '@/components/DashboardCharts';
 import { startOfDay, DAY_MS, fmtRelative } from '@/lib/dateUtils';
+import { subjectProgress } from '@/lib/subject';
 
 export default function DashboardPage() {
   const { boards, subjects, habits, goals, journal, loadingBoards, loadingSubjects } = useApp();
@@ -14,8 +15,9 @@ export default function DashboardPage() {
   const todo = allTasks.filter(t => t.status === 'todo').length;
   const inProgress = allTasks.filter(t => t.status === 'in-progress').length;
   const done = allTasks.filter(t => t.status === 'done').length;
-  const totalTopics = subjects.reduce((a, s) => a + (s.topics?.length || 0), 0);
-  const doneTopics = subjects.reduce((a, s) => a + (s.topics?.filter(t => t.status === 'done').length || 0), 0);
+  const subjectStats = subjects.map(s => subjectProgress(s));
+  const totalTopics = subjectStats.reduce((a, p) => a + p.topics.total, 0);
+  const doneTopics = subjectStats.reduce((a, p) => a + p.topics.done, 0);
 
   const stats = [
     { icon: <ListTodo size={20} />, label: 'To Do', value: todo, color: '#4f8ef7', bg: 'rgba(79,142,247,0.12)' },
@@ -135,9 +137,10 @@ export default function DashboardPage() {
                   </div>
                   {subjects.length === 0 && <div className="empty-state"><div className="empty-state-icon">📚</div><h3>No subjects yet</h3></div>}
                   {subjects.map(s => {
-                    const t = s.topics?.length || 0;
-                    const d = s.topics?.filter(x => x.status === 'done').length || 0;
-                    const pct = t ? Math.round((d / t) * 100) : 0;
+                    const prog = subjectProgress(s);
+                    const t = prog.topics.total;
+                    const d = prog.topics.done;
+                    const pct = prog.pct;
                     return (
                       <div key={s.id} style={{ marginBottom: 16 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>

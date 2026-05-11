@@ -190,27 +190,102 @@ function streakOf(habit) {
   return n;
 }
 
-export function HabitConsistencyChart({ habits }) {
+function HabitSparkline({ weeks, color }) {
+  const W = 180, H = 56, PAD_T = 6, PAD_B = 14, PAD_L = 4, PAD_R = 4;
+  const innerW = W - PAD_L - PAD_R;
+  const innerH = H - PAD_T - PAD_B;
+  const max = 7; // daily habit can hit 7/week
+  const n = weeks.length;
+  const barW = innerW / n;
+  const xAt = (i) => PAD_L + i * barW;
+  const yAt = (v) => PAD_T + (1 - v / max) * innerH;
+
+  // Line path connecting tops of bars
+  const linePts = weeks.map((w, i) => `${xAt(i) + barW / 2},${yAt(w.count)}`);
+  const linePath = 'M ' + linePts.join(' L ');
+
+  // Area path under line for fill
+  const areaPath = `M ${xAt(0) + barW / 2} ${yAt(0)} L ${linePts.join(' L ')} L ${xAt(n - 1) + barW / 2} ${yAt(0)} Z`;
+
+  // x-axis tick labels at quarter points
+  const ticks = [0, Math.floor(n / 3), Math.floor((n * 2) / 3), n - 1];
+
+  return (
+    <svg width={W} height={H} style={{ display: 'block' }}>
+      {/* baseline */}
+      <line x1={PAD_L} y1={yAt(0)} x2={W - PAD_R} y2={yAt(0)} stroke="var(--border)" />
+      {/* bars */}
+      {weeks.map((w, i) => {
+        const h = innerH * (w.count / max);
+        return (
+          <rect
+            key={i}
+            x={xAt(i) + 1}
+            y={yAt(w.count)}
+            width={Math.max(2, barW - 2)}
+            height={Math.max(1, h)}
+            rx={2}
+            fill={color}
+            opacity={w.count === 0 ? 0.15 : 0.45}
+          >
+            <title>{w.label}: {w.count}/7</title>
+          </rect>
+        );
+      })}
+      {/* area + line on top */}
+      <path d={areaPath} fill={color} opacity="0.18" />
+      <path d={linePath} stroke={color} strokeWidth="1.75" fill="none" strokeLinejoin="round" strokeLinecap="round" />
+      {/* end-point dot */}
+      <circle cx={xAt(n - 1) + barW / 2} cy={yAt(weeks[n - 1].count)} r="3" fill={color} />
+      {/* tick labels */}
+      {ticks.map(i => (
+        <text key={i} x={xAt(i) + barW / 2} y={H - 2} fontSize="8" textAnchor="middle" fill="var(--text-muted)">
+          {weeks[i].short}
+        </text>
+      ))}
+    </svg>
+  );
+}
+
+export function HabitConsistencyChart({ habits, weeks = 12 }) {
   const today = startOfDay(Date.now());
-  const last14 = useMemo(() => {
-    const out = [];
-    for (let i = 13; i >= 0; i--) out.push(today - i * DAY_MS);
-    return out;
+  const mondayThisWeek = useMemo(() => {
+    const dow = new Date(today).getDay(); // 0 = Sun
+    return today - ((dow + 6) % 7) * DAY_MS;
   }, [today]);
 
   const rows = useMemo(() => habits.map(h => {
     const set = new Set(h.completions || []);
-    // 30-day consistency
+    // weekly buckets
+    const buckets = [];
+    for (let i = weeks - 1; i >= 0; i--) {
+      const start = mondayThisWeek - i * 7 * DAY_MS;
+      let count = 0;
+      for (let d = 0; d < 7; d++) {
+        const dayStart = start + d * DAY_MS;
+        if (dayStart > today) break;
+        if (set.has(dateKey(dayStart))) count++;
+      }
+      const wk = new Date(start);
+      buckets.push({
+        start,
+        count,
+        label: `Week of ${wk.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`,
+        short: `${wk.getMonth() + 1}/${wk.getDate()}`,
+      });
+    }
+    // 30-day rate
     let hits30 = 0;
     for (let i = 0; i < 30; i++) if (set.has(dateKey(today - i * DAY_MS))) hits30++;
     const rate30 = Math.round((hits30 / 30) * 100);
-    return {
-      ...h,
-      streak: streakOf(h),
-      rate30,
-      last14: last14.map(ts => set.has(dateKey(ts))),
-    };
-  }), [habits, today, last14]);
+
+    // Trend (this week vs last week)
+    const thisWk = buckets[buckets.length - 1]?.count ?? 0;
+    const lastWk = buckets[buckets.length - 2]?.count ?? 0;
+    const delta = thisWk - lastWk;
+
+    return { ...h, streak: streakOf(h), rate30, buckets, delta };
+  }), [habits, today, mondayThisWeek, weeks]);
 
   if (habits.length === 0) {
     return (
@@ -230,46 +305,28 @@ export function HabitConsistencyChart({ habits }) {
     <div className="glass-card" style={{ padding: 20 }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
         <h2 style={{ fontSize: 14, fontWeight: 700 }}>🔥 Habit consistency</h2>
-        <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>last 30 days · {habits.length} habit{habits.length === 1 ? '' : 's'}</span>
+        <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>last {weeks} weeks · {habits.length} habit{habits.length === 1 ? '' : 's'}</span>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
         {rows.map(h => (
-          <div key={h.id} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto auto auto', alignItems: 'center', gap: 12 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>{h.icon}</span>
-              <span style={{ fontSize: 13, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h.name}</span>
+          <div key={h.id} style={{ padding: 12, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, minWidth: 0 }}>
+              <span style={{ fontSize: 18, flexShrink: 0 }}>{h.icon}</span>
+              <span style={{ fontSize: 13, fontWeight: 600, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={h.name}>{h.name}</span>
+              <span
+                style={{ fontSize: 11, fontWeight: 700, color: h.streak > 0 ? 'var(--accent-orange)' : 'var(--text-muted)' }}
+                title="Current streak"
+              >
+                {h.streak > 0 ? `🔥${h.streak}` : '—'}
+              </span>
             </div>
-            {/* 14-day strip */}
-            <div style={{ display: 'flex', gap: 3 }}>
-              {h.last14.map((done, i) => (
-                <span
-                  key={i}
-                  title={done ? 'Completed' : 'Missed'}
-                  style={{
-                    width: 10, height: 16, borderRadius: 2,
-                    background: done ? h.color : 'var(--bg-glass)',
-                    border: `1px solid ${done ? h.color : 'var(--border)'}`,
-                    opacity: done ? 1 : 0.6,
-                  }}
-                />
-              ))}
+            <HabitSparkline weeks={h.buckets} color={h.color} />
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 6, fontSize: 10, color: 'var(--text-muted)' }}>
+              <span>30-day rate <strong style={{ color: h.color }}>{h.rate30}%</strong></span>
+              <span style={{ color: h.delta > 0 ? 'var(--accent-green)' : h.delta < 0 ? 'var(--accent-red)' : 'var(--text-muted)' }}>
+                {h.delta > 0 ? '▲' : h.delta < 0 ? '▼' : '—'} {Math.abs(h.delta)} vs last wk
+              </span>
             </div>
-            <div style={{ minWidth: 80, display: 'flex', flexDirection: 'column', gap: 3 }}>
-              <div className="progress-bar" style={{ height: 5 }}>
-                <div className="progress-fill" style={{ width: `${h.rate30}%`, background: h.color }} />
-              </div>
-              <span style={{ fontSize: 10, color: 'var(--text-muted)', textAlign: 'right' }}>{h.rate30}%</span>
-            </div>
-            <span
-              style={{
-                fontSize: 11, fontWeight: 700,
-                minWidth: 38, textAlign: 'right',
-                color: h.streak > 0 ? 'var(--accent-orange)' : 'var(--text-muted)',
-              }}
-              title="Current streak"
-            >
-              {h.streak > 0 ? `🔥${h.streak}` : '—'}
-            </span>
           </div>
         ))}
       </div>
