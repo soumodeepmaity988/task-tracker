@@ -4,13 +4,86 @@ import Sidebar from '@/components/Sidebar';
 import { useApp } from '@/contexts/AppContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Plus, X, Check, Trash2, ArrowLeft, Pencil, Video, FileText, ExternalLink, ChevronDown, ChevronRight, Kanban } from 'lucide-react';
+import { Plus, X, Check, Trash2, ArrowLeft, Pencil, Video, FileText, ExternalLink, ChevronDown, ChevronRight, Kanban, Send } from 'lucide-react';
 
 const STATUS_CYCLE = { 'not-started': 'learning', 'learning': 'done', 'done': 'not-started' };
 const STATUS_COLOR = { 'not-started': 'tag-gray', 'learning': 'tag-yellow', 'done': 'tag-green' };
 const STATUS_LABEL = { 'not-started': 'Not Started', 'learning': 'Learning', 'done': 'Done' };
 const PRIORITY_COLOR = { low: '#22c55e', medium: '#eab308', high: '#f97316', critical: '#ef4444' };
 const PRIORITY_TAG = { low: 'tag-green', medium: 'tag-yellow', high: 'tag-orange', critical: 'tag-red' };
+
+// ── Move To Board Modal ──────────────────────────────────────
+function MoveToBoardModal({ kind, sourceTitle, sourceCount, boards, onClose, onConfirm }) {
+  const activeBoards = boards.filter(b => !b.archivedAt);
+  const NEW_OPT = '__new__';
+  const [target, setTarget] = useState(activeBoards[0]?.id || NEW_OPT);
+  const [newBoardName, setNewBoardName] = useState('');
+
+  useEffect(() => {
+    const h = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [onClose]);
+
+  const canSubmit = target === NEW_OPT ? newBoardName.trim().length > 0 : !!target;
+  const submit = () => {
+    if (!canSubmit) return;
+    if (target === NEW_OPT) onConfirm({ newBoardName: newBoardName.trim() });
+    else onConfirm({ targetBoardId: target });
+  };
+
+  return (
+    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="modal" style={{ maxWidth: 480 }}>
+        <div className="modal-header">
+          <span className="modal-title">📥 Move {kind === 'topic' ? 'topic' : 'item'} to a board</span>
+          <button className="btn btn-ghost btn-icon btn-sm" onClick={onClose}><X size={16} /></button>
+        </div>
+        <div className="modal-body">
+          <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 6 }}>
+            Moving: <strong>{sourceTitle}</strong>
+          </p>
+          <p style={{ fontSize: 11.5, color: 'var(--text-muted)', marginBottom: 16, lineHeight: 1.5 }}>
+            {kind === 'topic' ? (
+              <>Creates a new task on the target board with <strong>{sourceCount}</strong> subtask{sourceCount === 1 ? '' : 's'} (one per content). Marking subtasks done syncs status back here.</>
+            ) : (
+              <>Creates a new task on the target board. The video/doc links stay accessible as a subtask, and status syncs back here.</>
+            )}
+          </p>
+
+          <div className="form-group">
+            <label className="form-label">Target board</label>
+            <select className="form-select" value={target} onChange={e => setTarget(e.target.value)} autoFocus>
+              {activeBoards.map(b => (
+                <option key={b.id} value={b.id}>{b.name}</option>
+              ))}
+              <option value={NEW_OPT}>+ Create new board…</option>
+            </select>
+          </div>
+
+          {target === NEW_OPT && (
+            <div className="form-group" style={{ marginBottom: 0 }}>
+              <label className="form-label">New board name</label>
+              <input
+                className="form-input"
+                value={newBoardName}
+                onChange={e => setNewBoardName(e.target.value)}
+                placeholder="e.g. Focused Sprint, DSA Practice…"
+                autoFocus
+              />
+            </div>
+          )}
+        </div>
+        <div className="modal-footer">
+          <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+          <button className="btn btn-primary" onClick={submit} disabled={!canSubmit}>
+            <Send size={13} /> Move
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // ── Confirm Modal ──────────────────────────────────────────
 function ConfirmModal({ title, message, onConfirm, onCancel, loading }) {
@@ -141,7 +214,7 @@ function ContentModal({ initial, onSave, onClose }) {
 }
 
 // ── Content Row ───────────────────────────────────────────────
-function ContentItem({ content, onEdit, onDelete, onCycleStatus }) {
+function ContentItem({ content, onEdit, onDelete, onCycleStatus, onMoveToBoard }) {
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: 12,
@@ -213,6 +286,7 @@ function ContentItem({ content, onEdit, onDelete, onCycleStatus }) {
         )}
 
         <div style={{ width: 1, height: 18, background: 'var(--border)', margin: '0 2px' }} />
+        <button className="task-card-action-btn" onClick={() => onMoveToBoard?.()} title="Move to a board (creates a task)"><Send size={12} /></button>
         <button className="task-card-action-btn" onClick={() => onEdit(content)} title="Edit"><Pencil size={12} /></button>
         <button className="task-card-action-btn" onClick={() => onDelete(content.id)} title="Delete"><Trash2 size={12} /></button>
       </div>
@@ -222,12 +296,13 @@ function ContentItem({ content, onEdit, onDelete, onCycleStatus }) {
 
 export default function SubjectDetailPage({ params }) {
   const { id } = use(params);
-  const { subjects, loadingSubjects, updateSubject, fetchBoards } = useApp();
+  const { subjects, boards, loadingSubjects, updateSubject, createBoard, updateBoard, fetchBoards } = useApp();
   const router = useRouter();
   const subject = useMemo(() => subjects.find(s => s.id === id), [subjects, id]);
   const loading = loadingSubjects;
   const [converting, setConverting] = useState(false);
   const [showConvertModal, setShowConvertModal] = useState(false);
+  const [moveModal, setMoveModal] = useState(null); // { kind, topicId, contentId? }
 
   const [topicModal, setTopicModal] = useState(null); // null | { mode: 'add' | 'edit', initial? }
   const [contentModal, setContentModal] = useState(null); // null | { topicId, initial? }
@@ -287,6 +362,83 @@ export default function SubjectDetailPage({ params }) {
 
   const toggleCollapse = (topicId) => {
     setCollapsedTopics(prev => ({ ...prev, [topicId]: !prev[topicId] }));
+  };
+
+  // --- Move Topic or Content to a board (creates a task with subtasks) ---
+  const handleMoveToBoard = async ({ targetBoardId, newBoardName }) => {
+    if (!subject || !moveModal) return;
+    const { kind, topicId, contentId } = moveModal;
+    const topic = (subject.topics || []).find(t => t.id === topicId);
+    if (!topic) { setMoveModal(null); return; }
+
+    // Resolve target board (create if needed)
+    let board;
+    if (newBoardName) {
+      board = await createBoard(newBoardName);
+    } else {
+      board = boards.find(b => b.id === targetBoardId);
+    }
+    if (!board) { setMoveModal(null); return; }
+
+    const now = Date.now();
+    const rand = () => Math.random().toString(36).slice(2, 7);
+    let newTask;
+
+    if (kind === 'topic') {
+      newTask = {
+        id: `t-${now}-${rand()}`,
+        title: topic.title,
+        description: '',
+        priority: 'medium',
+        status: 'todo',
+        tags: [subject.name],
+        sprintId: null,
+        createdAt: now,
+        completedAt: null,
+        sourceRef: { subjectId: subject.id, topicId: topic.id },
+        subtasks: (topic.contents || []).map((c, i) => ({
+          id: `st-${now}-${i}-${rand()}`,
+          title: c.title,
+          notes: c.notes || '',
+          videoUrl: c.videoUrl || '',
+          docUrl: c.docUrl || '',
+          priority: c.priority || 'medium',
+          status: c.status || 'not-started',
+          sourceContentId: c.id,
+          createdAt: now,
+        })),
+      };
+    } else {
+      const content = (topic.contents || []).find(c => c.id === contentId);
+      if (!content) { setMoveModal(null); return; }
+      newTask = {
+        id: `t-${now}-${rand()}`,
+        title: content.title,
+        description: content.notes || '',
+        priority: content.priority || 'medium',
+        status: content.status === 'done' ? 'done' : 'todo',
+        tags: [subject.name, topic.title],
+        sprintId: null,
+        createdAt: now,
+        completedAt: content.status === 'done' ? now : null,
+        sourceRef: { subjectId: subject.id, topicId: topic.id },
+        subtasks: [{
+          id: `st-${now}-${rand()}`,
+          title: content.title,
+          notes: content.notes || '',
+          videoUrl: content.videoUrl || '',
+          docUrl: content.docUrl || '',
+          priority: content.priority || 'medium',
+          status: content.status || 'not-started',
+          sourceContentId: content.id,
+          createdAt: now,
+        }],
+      };
+    }
+
+    const tasks = [...(board.tasks || []), newTask];
+    await updateBoard(board.id, { tasks });
+    setMoveModal(null);
   };
 
   // --- Move to Tasks ---
@@ -453,6 +605,11 @@ export default function SubjectDetailPage({ params }) {
                         <button className="btn btn-ghost btn-sm" style={{ fontSize: 11, padding: '3px 8px' }} onClick={() => setContentModal({ topicId: topic.id, initial: null })}>
                           <Plus size={12} /> Content
                         </button>
+                        <button
+                          className="task-card-action-btn"
+                          onClick={() => setMoveModal({ kind: 'topic', topicId: topic.id })}
+                          title="Move this topic to a board (creates a task with subtasks)"
+                        ><Send size={12} /></button>
                         <button className="task-card-action-btn" onClick={() => setTopicModal({ mode: 'edit', initial: topic })} title="Edit Topic"><Pencil size={12} /></button>
                         <button className="task-card-action-btn" onClick={() => handleDeleteTopic(topic.id)} title="Delete Topic"><Trash2 size={12} /></button>
                       </div>
@@ -473,6 +630,7 @@ export default function SubjectDetailPage({ params }) {
                               onEdit={(c) => setContentModal({ topicId: topic.id, initial: c })}
                               onDelete={(cId) => handleDeleteContent(topic.id, cId)}
                               onCycleStatus={(cId) => handleCycleContentStatus(topic.id, cId)}
+                              onMoveToBoard={() => setMoveModal({ kind: 'content', topicId: topic.id, contentId: content.id })}
                             />
                           ))
                         )}
@@ -498,6 +656,31 @@ export default function SubjectDetailPage({ params }) {
           loading={converting}
         />
       )}
+
+      {moveModal && (() => {
+        const topic = (subject.topics || []).find(t => t.id === moveModal.topicId);
+        if (!topic) return null;
+        let sourceTitle, sourceCount;
+        if (moveModal.kind === 'topic') {
+          sourceTitle = topic.title;
+          sourceCount = (topic.contents || []).length;
+        } else {
+          const content = (topic.contents || []).find(c => c.id === moveModal.contentId);
+          if (!content) return null;
+          sourceTitle = content.title;
+          sourceCount = 1;
+        }
+        return (
+          <MoveToBoardModal
+            kind={moveModal.kind}
+            sourceTitle={sourceTitle}
+            sourceCount={sourceCount}
+            boards={boards}
+            onClose={() => setMoveModal(null)}
+            onConfirm={handleMoveToBoard}
+          />
+        );
+      })()}
     </div>
   );
 }
