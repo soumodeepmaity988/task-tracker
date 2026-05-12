@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/contexts/AppContext';
-import { Plus, Pencil, Trash2, Check, X, LayoutDashboard, BookOpen, Kanban, Settings, ChevronDown, ChevronRight, Calendar, CheckCircle2, Flame, Target, BookText, Moon, Sun, CalendarDays } from 'lucide-react';
+import { Plus, Pencil, Trash2, Check, X, LayoutDashboard, BookOpen, Kanban, Settings, ChevronDown, ChevronRight, Calendar, CheckCircle2, Flame, Target, BookText, Moon, Sun, CalendarDays, Archive } from 'lucide-react';
 
 const DAY_MS = 86400000;
 
@@ -132,6 +132,27 @@ export default function Sidebar() {
     router.push(`/tasks/${boardId}?sprint=${sprint.id}`);
   };
 
+  const handleArchiveBoard = async (id, e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    await updateBoard(id, { archivedAt: Date.now() });
+    if (pathname === `/tasks/${id}`) router.push('/');
+  };
+
+  const handleArchiveSprint = async (boardId, sprintId, e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    const board = boards.find(b => b.id === boardId);
+    if (!board) return;
+    const sprints = (board.sprints || []).map(s =>
+      s.id === sprintId ? { ...s, archivedAt: Date.now() } : s
+    );
+    await updateBoard(boardId, { sprints });
+    if (pathname === `/tasks/${boardId}` && activeSprintId === sprintId) {
+      router.replace(`/tasks/${boardId}`);
+    }
+  };
+
   const handleDeleteSprint = async (boardId, sprintId, e) => {
     e?.preventDefault();
     e?.stopPropagation();
@@ -219,6 +240,9 @@ export default function Sidebar() {
         <Link href="/review" className={`sidebar-link${pathname === '/review' ? ' active' : ''}`}>
           <BookOpen size={15} /> Weekly Review
         </Link>
+        <Link href="/archive" className={`sidebar-link${pathname === '/archive' ? ' active' : ''}`}>
+          <Archive size={15} /> Archive
+        </Link>
       </div>
 
       <div className="divider" style={{ margin: '4px 0' }} />
@@ -238,11 +262,11 @@ export default function Sidebar() {
       </div>
 
       <nav className="sidebar-nav" style={{ padding: '0 10px' }}>
-        {boards.map(board => {
+        {boards.filter(b => !b.archivedAt).map(board => {
           const onBoardPage = pathname === `/tasks/${board.id}`;
           const active = onBoardPage && !activeSprintId;
           const expanded = !!expandedBoards[board.id];
-          const sprints = board.sprints || [];
+          const sprints = (board.sprints || []).filter(s => !s.archivedAt);
           return (
             <div key={board.id} style={{ position: 'relative' }}>
               <div className="sidebar-item-wrap" style={{ position: 'relative' }}>
@@ -278,9 +302,14 @@ export default function Sidebar() {
                         title="Rename"
                       ><Pencil size={11} /></button>
                       <button
+                        onClick={(e) => handleArchiveBoard(board.id, e)}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 2, borderRadius: 3, display: 'flex' }}
+                        title="Archive (hides from main UI, keeps in history)"
+                      ><Archive size={11} /></button>
+                      <button
                         onClick={e => handleDeleteBoard(board.id, e)}
                         style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 2, borderRadius: 3, display: 'flex' }}
-                        title="Delete"
+                        title="Delete (permanent — removes from charts)"
                       ><Trash2 size={11} /></button>
                     </span>
                   </Link>
@@ -318,9 +347,14 @@ export default function Sidebar() {
                           </span>
                           <span className="sidebar-item-actions">
                             <button
+                              onClick={(e) => handleArchiveSprint(board.id, sp.id, e)}
+                              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 2, borderRadius: 3, display: 'flex' }}
+                              title="Archive sprint"
+                            ><Archive size={10} /></button>
+                            <button
                               onClick={(e) => handleDeleteSprint(board.id, sp.id, e)}
                               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 2, borderRadius: 3, display: 'flex' }}
-                              title="Delete sprint"
+                              title="Delete sprint (permanent)"
                             ><Trash2 size={10} /></button>
                           </span>
                         </Link>

@@ -545,12 +545,13 @@ function StatusFilter({ value, onChange }) {
 
 // ── Sprint Selector ───────────────────────────────────────────
 function SprintSelector({ sprints, value, onChange }) {
+  const visible = sprints.filter(s => !s.archivedAt);
   return (
     <select className="form-select" value={value} onChange={e => onChange(e.target.value)}
       style={{ minWidth: 220, fontWeight: 600 }}>
       <option value={SPRINT_FILTER_ALL}>All Tasks</option>
       <option value={SPRINT_FILTER_NONE}>— No Sprint (Unscheduled) —</option>
-      {sprints.map(s => (
+      {visible.map(s => (
         <option key={s.id} value={s.id}>
           {s.name}{s.status === 'completed' ? ' ✓' : ''} · {fmtRange(s.startDate, s.endDate)}
         </option>

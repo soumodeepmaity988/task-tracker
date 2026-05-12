@@ -1,6 +1,7 @@
 import { readSubjects, writeSubjects } from '@/lib/fileStore';
 
 export async function POST(request) {
+  try { // [wrapped]
   const body = await request.json();
   const { subjectId, topicId, contentStatuses } = body;
 
@@ -8,7 +9,7 @@ export async function POST(request) {
     return Response.json({ error: 'Missing subjectId, topicId, or contentStatuses' }, { status: 400 });
   }
 
-  const subjects = readSubjects();
+  const subjects = await readSubjects();
   const subject = subjects.find(s => s.id === subjectId);
   if (!subject) {
     return Response.json({ error: 'Subject not found' }, { status: 404 });
@@ -29,6 +30,10 @@ export async function POST(request) {
     });
   }
 
-  writeSubjects(subjects);
+  await writeSubjects(subjects);
   return Response.json({ success: true, topic });
+  } catch (e) {
+    console.error("[POST /tasks/sync]", e);
+    return Response.json({ error: String(e?.message || e), where: "POST /tasks/sync" }, { status: 500 });
+  }
 }

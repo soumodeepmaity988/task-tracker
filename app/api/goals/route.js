@@ -1,12 +1,18 @@
 import { readGoals, writeGoals } from '@/lib/fileStore';
 
 export async function GET() {
-  return Response.json(readGoals());
+  try { // [wrapped]
+  return Response.json(await readGoals());
+  } catch (e) {
+    console.error("[GET /goals]", e);
+    return Response.json({ error: String(e?.message || e), where: "GET /goals" }, { status: 500 });
+  }
 }
 
 export async function POST(request) {
+  try { // [wrapped]
   const body = await request.json();
-  const goals = readGoals();
+  const goals = await readGoals();
   const newGoal = {
     id: `g-${Date.now()}`,
     name: body.name || 'Untitled Goal',
@@ -19,6 +25,10 @@ export async function POST(request) {
     createdAt: Date.now(),
   };
   goals.push(newGoal);
-  writeGoals(goals);
+  await writeGoals(goals);
   return Response.json(newGoal, { status: 201 });
+  } catch (e) {
+    console.error("[POST /goals]", e);
+    return Response.json({ error: String(e?.message || e), where: "POST /goals" }, { status: 500 });
+  }
 }

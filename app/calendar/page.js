@@ -67,7 +67,7 @@ export default function CalendarPage() {
 
   const tasksByDate = useMemo(() => {
     const map = {};
-    boards.forEach(b => (b.tasks || []).forEach(t => {
+    boards.filter(b => !b.archivedAt).forEach(b => (b.tasks || []).forEach(t => {
       if (!t.dueDate) return;
       const key = dateKey(t.dueDate);
       (map[key] ||= []).push({ ...t, _board: b });

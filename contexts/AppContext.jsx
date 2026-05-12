@@ -49,39 +49,54 @@ export function AppProvider({ children }) {
     });
   }, []);
 
+  // Defensive fetch: returns parsed JSON array, or [] if the route errored / body
+  // is not JSON. Logs the underlying problem to the browser console.
+  async function safeFetchArray(url) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        console.error(`[${url}] HTTP ${res.status}:`, text.slice(0, 500));
+        return [];
+      }
+      const data = await res.json().catch(async () => {
+        const text = await res.text().catch(() => '');
+        console.error(`[${url}] response was not JSON:`, text.slice(0, 500));
+        return [];
+      });
+      return Array.isArray(data) ? data : [];
+    } catch (e) {
+      console.error(`[${url}] fetch failed:`, e);
+      return [];
+    }
+  }
+
   const fetchBoards = useCallback(async () => {
     setLoadingBoards(true);
-    const res = await fetch('/api/boards');
-    const data = await res.json();
-    setBoards(data);
+    setBoards(await safeFetchArray('/api/boards'));
     setLoadingBoards(false);
   }, []);
 
   const fetchSubjects = useCallback(async () => {
     setLoadingSubjects(true);
-    const res = await fetch('/api/subjects');
-    const data = await res.json();
-    setSubjects(data);
+    setSubjects(await safeFetchArray('/api/subjects'));
     setLoadingSubjects(false);
   }, []);
 
   const fetchHabits = useCallback(async () => {
     setLoadingHabits(true);
-    const res = await fetch('/api/habits');
-    setHabits(await res.json());
+    setHabits(await safeFetchArray('/api/habits'));
     setLoadingHabits(false);
   }, []);
 
   const fetchGoals = useCallback(async () => {
     setLoadingGoals(true);
-    const res = await fetch('/api/goals');
-    setGoals(await res.json());
+    setGoals(await safeFetchArray('/api/goals'));
     setLoadingGoals(false);
   }, []);
 
   const fetchJournal = useCallback(async () => {
-    const res = await fetch('/api/journal');
-    setJournal(await res.json());
+    setJournal(await safeFetchArray('/api/journal'));
   }, []);
 
   useEffect(() => {

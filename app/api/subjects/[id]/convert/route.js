@@ -1,15 +1,16 @@
 import { readSubjects, readBoards, writeBoards } from '@/lib/fileStore';
 
 export async function POST(request, { params }) {
+  try { // [wrapped]
   const { id } = await params;
-  const subjects = readSubjects();
+  const subjects = await readSubjects();
   const subject = subjects.find(s => s.id === id);
 
   if (!subject) {
     return Response.json({ error: 'Subject not found' }, { status: 404 });
   }
 
-  const boards = readBoards();
+  const boards = await readBoards();
   const boardId = `board-${Date.now()}`;
 
   // Convert topics → tasks, contents → subtasks
@@ -46,7 +47,11 @@ export async function POST(request, { params }) {
   };
 
   boards.push(newBoard);
-  writeBoards(boards);
+  await writeBoards(boards);
 
   return Response.json(newBoard, { status: 201 });
+  } catch (e) {
+    console.error("[POST /subjects/[id]/convert]", e);
+    return Response.json({ error: String(e?.message || e), where: "POST /subjects/[id]/convert" }, { status: 500 });
+  }
 }

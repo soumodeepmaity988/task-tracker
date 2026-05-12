@@ -1,12 +1,18 @@
 import { readHabits, writeHabits } from '@/lib/fileStore';
 
 export async function GET() {
-  return Response.json(readHabits());
+  try { // [wrapped]
+  return Response.json(await readHabits());
+  } catch (e) {
+    console.error("[GET /habits]", e);
+    return Response.json({ error: String(e?.message || e), where: "GET /habits" }, { status: 500 });
+  }
 }
 
 export async function POST(request) {
+  try { // [wrapped]
   const body = await request.json();
-  const habits = readHabits();
+  const habits = await readHabits();
   const newHabit = {
     id: `h-${Date.now()}`,
     name: body.name || 'Untitled Habit',
@@ -18,6 +24,10 @@ export async function POST(request) {
     completions: [], // array of ISO date strings 'YYYY-MM-DD'
   };
   habits.push(newHabit);
-  writeHabits(habits);
+  await writeHabits(habits);
   return Response.json(newHabit, { status: 201 });
+  } catch (e) {
+    console.error("[POST /habits]", e);
+    return Response.json({ error: String(e?.message || e), where: "POST /habits" }, { status: 500 });
+  }
 }

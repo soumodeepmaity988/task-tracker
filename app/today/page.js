@@ -41,7 +41,7 @@ export default function TodayPage() {
     const dueToday = [];
     const thisWeek = [];
     const noDate = [];
-    boards.forEach(b => {
+    boards.filter(b => !b.archivedAt).forEach(b => {
       (b.tasks || []).forEach(t => {
         if ((t.status || 'todo') === 'done') return;
         const entry = { ...t, _board: b };

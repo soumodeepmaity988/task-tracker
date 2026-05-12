@@ -11,10 +11,14 @@ import { subjectProgress } from '@/lib/subject';
 export default function DashboardPage() {
   const { boards, subjects, habits, goals, journal, loadingBoards, loadingSubjects } = useApp();
 
-  const allTasks = boards.flatMap(b => b.tasks || []);
-  const todo = allTasks.filter(t => t.status === 'todo').length;
-  const inProgress = allTasks.filter(t => t.status === 'in-progress').length;
-  const done = allTasks.filter(t => t.status === 'done').length;
+  // Active = not archived. Used for current-state UI (stats, today, boards list).
+  // ALL boards/tasks (including archived) feed historical charts so deletes are
+  // not the only way to remove data from history.
+  const activeBoards = boards.filter(b => !b.archivedAt);
+  const activeTasks = activeBoards.flatMap(b => b.tasks || []);
+  const todo = activeTasks.filter(t => t.status === 'todo').length;
+  const inProgress = activeTasks.filter(t => t.status === 'in-progress').length;
+  const done = activeTasks.filter(t => t.status === 'done').length;
   const subjectStats = subjects.map(s => subjectProgress(s));
   const totalTopics = subjectStats.reduce((a, p) => a + p.topics.total, 0);
   const doneTopics = subjectStats.reduce((a, p) => a + p.topics.done, 0);
@@ -23,12 +27,12 @@ export default function DashboardPage() {
     { icon: <ListTodo size={20} />, label: 'To Do', value: todo, color: '#4f8ef7', bg: 'rgba(79,142,247,0.12)' },
     { icon: <Zap size={20} />, label: 'In Progress', value: inProgress, color: '#eab308', bg: 'rgba(234,179,8,0.12)' },
     { icon: <CheckCircle2 size={20} />, label: 'Done', value: done, color: '#22c55e', bg: 'rgba(34,197,94,0.12)' },
-    { icon: <Kanban size={20} />, label: 'Boards', value: boards.length, color: '#4f8ef7', bg: 'rgba(79,142,247,0.12)' },
+    { icon: <Kanban size={20} />, label: 'Boards', value: activeBoards.length, color: '#4f8ef7', bg: 'rgba(79,142,247,0.12)' },
     { icon: <BookOpen size={20} />, label: 'Subjects', value: subjects.length, color: '#2dd4bf', bg: 'rgba(45,212,191,0.12)' },
     { icon: <TrendingUp size={20} />, label: 'Topics Done', value: `${doneTopics}/${totalTopics}`, color: '#ec4899', bg: 'rgba(236,72,153,0.12)' },
   ];
 
-  const recentTasks = [...allTasks].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6);
+  const recentTasks = [...activeTasks].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6);
   const pColor = { low: 'tag-green', medium: 'tag-yellow', high: 'tag-orange', critical: 'tag-red' };
   const sLabel = { todo: 'To Do', 'in-progress': 'In Progress', done: 'Done' };
 
@@ -64,7 +68,7 @@ export default function DashboardPage() {
 
               {(() => {
                 const today = startOfDay(Date.now());
-                const todayTasks = boards.flatMap(b =>
+                const todayTasks = activeBoards.flatMap(b =>
                   (b.tasks || [])
                     .filter(t => t.dueDate && startOfDay(t.dueDate) <= today && t.status !== 'done')
                     .map(t => ({ ...t, _board: b }))
@@ -158,11 +162,11 @@ export default function DashboardPage() {
               </div>
 
               {/* Boards Overview */}
-              {boards.length > 0 && (
+              {activeBoards.length > 0 && (
                 <div style={{ marginTop: 20 }}>
                   <h2 style={{ fontSize: 14, fontWeight: 700, marginBottom: 14, color: 'var(--text-secondary)' }}>Task Boards</h2>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 }}>
-                    {boards.map(b => {
+                    {activeBoards.map(b => {
                       const tasks = b.tasks || [];
                       const doneCount = tasks.filter(t => t.status === 'done').length;
                       return (
