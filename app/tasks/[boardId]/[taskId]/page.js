@@ -7,102 +7,7 @@ import { ArrowLeft, Check, Pencil, Trash2, Video, FileText, X, Plus, Save, Play,
 import Markdown from '@/components/Markdown';
 import { usePomodoro } from '@/contexts/PomodoroContext';
 import { fmtDuration, fmtRelative, isOverdue, isToday } from '@/lib/dateUtils';
-
-function getYoutubeId(url) {
-  if (!url) return null;
-  const patterns = [
-    /youtu\.be\/([a-zA-Z0-9_-]{11})/,
-    /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
-    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
-    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
-  ];
-  for (const p of patterns) {
-    const m = url.match(p);
-    if (m) return m[1];
-  }
-  return null;
-}
-
-function VideoPlayerModal({ url, title, onClose }) {
-  const id = getYoutubeId(url);
-  useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [onClose]);
-
-  return (
-    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="modal" style={{ maxWidth: 960, width: '92%' }}>
-        <div className="modal-header">
-          <span className="modal-title" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 12 }}>{title}</span>
-          <div style={{ display: 'flex', gap: 6 }}>
-            <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-icon btn-sm" title="Open on YouTube">
-              <ExternalLink size={14} />
-            </a>
-            <button className="btn btn-ghost btn-icon btn-sm" onClick={onClose} title="Close"><X size={16} /></button>
-          </div>
-        </div>
-        <div style={{ aspectRatio: '16/9', background: 'black', width: '100%' }}>
-          {id ? (
-            <iframe
-              src={`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`}
-              title={title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              style={{ border: 0, width: '100%', height: '100%', display: 'block' }}
-            />
-          ) : (
-            <div style={{ padding: 40, color: 'var(--text-muted)', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', flexDirection: 'column', gap: 10 }}>
-              <p style={{ fontSize: 13 }}>Can't embed this URL inline.</p>
-              <a className="btn btn-primary btn-sm" href={url} target="_blank" rel="noopener noreferrer">
-                <ExternalLink size={12} /> Open in new tab
-              </a>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function VideoThumbnail({ url, onClick }) {
-  const id = getYoutubeId(url);
-  if (!id) return null;
-  return (
-    <button
-      onClick={onClick}
-      type="button"
-      style={{
-        position: 'relative', display: 'block', width: '100%', maxWidth: 320,
-        marginTop: 10, padding: 0, border: '1px solid var(--border)', borderRadius: 10,
-        overflow: 'hidden', cursor: 'pointer', background: 'black',
-        transition: 'transform 0.15s, border-color 0.15s',
-      }}
-      onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent-blue)'; }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; }}
-      title="Play video"
-    >
-      <img
-        src={`https://img.youtube.com/vi/${id}/mqdefault.jpg`}
-        alt="Video thumbnail"
-        style={{ width: '100%', height: 'auto', display: 'block', aspectRatio: '16/9', objectFit: 'cover' }}
-      />
-      <div style={{
-        position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.4) 100%)',
-      }}>
-        <div style={{
-          width: 48, height: 48, borderRadius: '50%',
-          background: 'rgba(255,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 2px 12px rgba(0,0,0,0.5)',
-        }}>
-          <Play size={20} color="white" fill="white" style={{ marginLeft: 2 }} />
-        </div>
-      </div>
-    </button>
-  );
-}
+import { VideoIconButton, VideoThumbnailStrip, VideoPlayerModal } from '@/components/VideoPlayer';
 
 const STATUS_CYCLE = { 'not-started': 'learning', 'learning': 'done', 'done': 'not-started' };
 const STATUS_COLOR = { 'not-started': 'tag-gray', 'learning': 'tag-yellow', 'done': 'tag-green' };
@@ -112,11 +17,24 @@ const TASK_STATUS_COLOR = { 'todo': 'tag-blue', 'in-progress': 'tag-yellow', 'do
 const PRIORITY_TAG = { low: 'tag-green', medium: 'tag-yellow', high: 'tag-orange', critical: 'tag-red' };
 
 function SubtaskModal({ initial, onSave, onClose }) {
-  const [form, setForm] = useState(initial || {
-    title: '', notes: '', videoUrl: '', docUrl: '', priority: 'medium', status: 'not-started'
+  const [form, setForm] = useState(() => {
+    const base = initial || { title: '', notes: '', docUrl: '', priority: 'medium', status: 'not-started' };
+    // Normalize videoUrls — fall back to legacy single videoUrl
+    const urls = Array.isArray(base.videoUrls) && base.videoUrls.length > 0
+      ? base.videoUrls
+      : (base.videoUrl ? [base.videoUrl] : []);
+    return { ...base, videoUrls: urls.length > 0 ? urls : [''] };
   });
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
-  const submit = (e) => { e.preventDefault(); if (!form.title.trim()) return; onSave(form); };
+  const updateUrl = (i, v) => setForm(f => ({ ...f, videoUrls: f.videoUrls.map((u, idx) => idx === i ? v : u) }));
+  const addUrl = () => setForm(f => ({ ...f, videoUrls: [...(f.videoUrls || []), ''] }));
+  const removeUrl = (i) => setForm(f => ({ ...f, videoUrls: f.videoUrls.filter((_, idx) => idx !== i) }));
+  const submit = (e) => {
+    e.preventDefault();
+    if (!form.title.trim()) return;
+    const urls = (form.videoUrls || []).map(u => (u || '').trim()).filter(Boolean);
+    onSave({ ...form, videoUrls: urls, videoUrl: urls[0] || '' });
+  };
 
   return (
     <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
@@ -151,8 +69,26 @@ function SubtaskModal({ initial, onSave, onClose }) {
               </div>
             </div>
             <div className="form-group">
-              <label className="form-label">🎬 Video URL</label>
-              <input className="form-input" value={form.videoUrl} onChange={e => set('videoUrl', e.target.value)} placeholder="https://youtube.com/watch?v=..." />
+              <label className="form-label">🎬 Video URLs {form.videoUrls.length > 1 && <span style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 400 }}>({form.videoUrls.length})</span>}</label>
+              {form.videoUrls.map((url, i) => (
+                <div key={i} style={{ display: 'flex', gap: 4, marginBottom: 5 }}>
+                  <input
+                    className="form-input"
+                    value={url}
+                    onChange={e => updateUrl(i, e.target.value)}
+                    placeholder="https://youtube.com/watch?v=..."
+                    style={{ flex: 1 }}
+                  />
+                  {form.videoUrls.length > 1 && (
+                    <button type="button" className="task-card-action-btn" onClick={() => removeUrl(i)} title="Remove">
+                      <X size={12} />
+                    </button>
+                  )}
+                </div>
+              ))}
+              <button type="button" className="btn btn-ghost btn-sm" onClick={addUrl} style={{ fontSize: 11, padding: '4px 8px' }}>
+                <Plus size={12} /> Add another video
+              </button>
             </div>
             <div className="form-group">
               <label className="form-label">📄 Doc / Question URL</label>
@@ -175,12 +111,12 @@ function SubtaskModal({ initial, onSave, onClose }) {
 
 export default function TaskDetailPage({ params }) {
   const { boardId, taskId } = use(params);
-  const { boards, loadingBoards, updateBoard } = useApp();
+  const { boards, loadingBoards, updateBoard, fetchSubjects } = useApp();
   const board = useMemo(() => boards.find(b => b.id === boardId), [boards, boardId]);
   const task = useMemo(() => board?.tasks?.find(t => t.id === taskId), [board, taskId]);
   const loading = loadingBoards;
   const [subtaskModal, setSubtaskModal] = useState(null);
-  const [videoModal, setVideoModal] = useState(null); // { url, title } | null
+  const [videoModal, setVideoModal] = useState(null); // { urls, startUrl, title } | null
   const [editingDesc, setEditingDesc] = useState(false);
   const [descValue, setDescValue] = useState('');
   const { session: pomoSession, start: startPomo, stop: stopPomo } = usePomodoro();
@@ -203,25 +139,47 @@ export default function TaskDetailPage({ params }) {
     await updateBoard(boardId, { tasks });
   };
 
-  // Sync subtask statuses back to subjects.json
+  // Sync subtask edits back to the source subject's contents:
+  // status, title, notes, video URLs, doc URL, priority — anything editable.
   const syncToSubject = async (updatedTask) => {
     if (!updatedTask.sourceRef) return;
-    const contentStatuses = {};
+    const contentPatches = {};
     (updatedTask.subtasks || []).forEach(st => {
-      if (st.sourceContentId) {
-        contentStatuses[st.sourceContentId] = st.status;
-      }
+      if (!st.sourceContentId) return;
+      const urls = Array.isArray(st.videoUrls) && st.videoUrls.length > 0
+        ? st.videoUrls
+        : (st.videoUrl ? [st.videoUrl] : []);
+      contentPatches[st.sourceContentId] = {
+        status: st.status,
+        title: st.title,
+        notes: st.notes || '',
+        docUrl: st.docUrl || '',
+        priority: st.priority || 'medium',
+        videoUrl: urls[0] || '',
+        videoUrls: urls,
+      };
     });
-    if (Object.keys(contentStatuses).length > 0) {
-      await fetch('/api/tasks/sync', {
+    if (Object.keys(contentPatches).length === 0) return;
+    try {
+      const res = await fetch('/api/tasks/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           subjectId: updatedTask.sourceRef.subjectId,
           topicId: updatedTask.sourceRef.topicId,
-          contentStatuses,
+          contentPatches,
         }),
       });
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        console.error('[syncToSubject] HTTP', res.status, text.slice(0, 300));
+        return;
+      }
+      // DB updated — pull the fresh subjects into the AppContext so the
+      // subject page and dashboard reflect the change without a hard refresh.
+      if (typeof fetchSubjects === 'function') await fetchSubjects();
+    } catch (e) {
+      console.error('[syncToSubject] failed:', e);
     }
   };
 
@@ -472,16 +430,17 @@ export default function TaskDetailPage({ params }) {
 
                     {/* Links & actions */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                      {st.videoUrl && (
-                        <button
-                          type="button"
-                          onClick={() => setVideoModal({ url: st.videoUrl, title: st.title })}
-                          title="Play Video"
-                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 6, background: 'rgba(255,68,68,0.12)', color: '#ff4444', border: 'none', cursor: 'pointer' }}
-                        >
-                          <Video size={14} />
-                        </button>
-                      )}
+                      {(() => {
+                        const urls = Array.isArray(st.videoUrls) && st.videoUrls.length > 0
+                          ? st.videoUrls
+                          : (st.videoUrl ? [st.videoUrl] : []);
+                        return (
+                          <VideoIconButton
+                            urls={urls}
+                            onPlay={() => setVideoModal({ urls, startUrl: urls[0], title: st.title })}
+                          />
+                        );
+                      })()}
                       {st.docUrl && (
                         <a href={st.docUrl} target="_blank" rel="noopener noreferrer" title="Open Doc"
                           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: 6, background: 'rgba(79,142,247,0.12)', color: '#4f8ef7', textDecoration: 'none' }}>
@@ -494,15 +453,21 @@ export default function TaskDetailPage({ params }) {
                     </div>
                   </div>
 
-                  {/* Video thumbnail preview (below content) */}
-                  {st.videoUrl && getYoutubeId(st.videoUrl) && (
-                    <div style={{ paddingLeft: 32 }}>
-                      <VideoThumbnail
-                        url={st.videoUrl}
-                        onClick={() => setVideoModal({ url: st.videoUrl, title: st.title })}
-                      />
-                    </div>
-                  )}
+                  {/* Video preview(s) below the content. Single video → one thumbnail. Multiple → carousel. */}
+                  {(() => {
+                    const urls = Array.isArray(st.videoUrls) && st.videoUrls.length > 0
+                      ? st.videoUrls
+                      : (st.videoUrl ? [st.videoUrl] : []);
+                    if (urls.length === 0) return null;
+                    return (
+                      <div style={{ paddingLeft: 32, marginTop: 4 }}>
+                        <VideoThumbnailStrip
+                          urls={urls}
+                          onPick={(u) => setVideoModal({ urls, startUrl: u, title: st.title })}
+                        />
+                      </div>
+                    );
+                  })()}
                 </div>
               ))}
             </div>
@@ -520,7 +485,8 @@ export default function TaskDetailPage({ params }) {
 
       {videoModal && (
         <VideoPlayerModal
-          url={videoModal.url}
+          urls={videoModal.urls}
+          startUrl={videoModal.startUrl}
           title={videoModal.title}
           onClose={() => setVideoModal(null)}
         />

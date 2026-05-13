@@ -5,6 +5,7 @@ import { useApp } from '@/contexts/AppContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Plus, X, Check, Trash2, ArrowLeft, Pencil, Video, FileText, ExternalLink, ChevronDown, ChevronRight, Kanban, Send } from 'lucide-react';
+import { VideoIconButton, VideoThumbnailStrip, VideoPlayerModal } from '@/components/VideoPlayer';
 
 const STATUS_CYCLE = { 'not-started': 'learning', 'learning': 'done', 'done': 'not-started' };
 const STATUS_COLOR = { 'not-started': 'tag-gray', 'learning': 'tag-yellow', 'done': 'tag-green' };
@@ -144,11 +145,23 @@ function TopicModal({ initial, onSave, onClose }) {
 
 // ── Content Modal ─────────────────────────────────────────────
 function ContentModal({ initial, onSave, onClose }) {
-  const [form, setForm] = useState(initial || {
-    title: '', notes: '', videoUrl: '', docUrl: '', priority: 'medium', status: 'not-started'
+  const [form, setForm] = useState(() => {
+    const base = initial || { title: '', notes: '', docUrl: '', priority: 'medium', status: 'not-started' };
+    const urls = Array.isArray(base.videoUrls) && base.videoUrls.length > 0
+      ? base.videoUrls
+      : (base.videoUrl ? [base.videoUrl] : []);
+    return { ...base, videoUrls: urls.length > 0 ? urls : [''] };
   });
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
-  const submit = (e) => { e.preventDefault(); if (!form.title.trim()) return; onSave(form); };
+  const updateUrl = (i, v) => setForm(f => ({ ...f, videoUrls: f.videoUrls.map((u, idx) => idx === i ? v : u) }));
+  const addUrl = () => setForm(f => ({ ...f, videoUrls: [...(f.videoUrls || []), ''] }));
+  const removeUrl = (i) => setForm(f => ({ ...f, videoUrls: f.videoUrls.filter((_, idx) => idx !== i) }));
+  const submit = (e) => {
+    e.preventDefault();
+    if (!form.title.trim()) return;
+    const urls = (form.videoUrls || []).map(u => (u || '').trim()).filter(Boolean);
+    onSave({ ...form, videoUrls: urls, videoUrl: urls[0] || '' });
+  };
 
   return (
     <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
@@ -183,12 +196,35 @@ function ContentModal({ initial, onSave, onClose }) {
               </div>
             </div>
             <div className="form-group">
-              <label className="form-label">🎬 Video URL</label>
-              <div style={{ position: 'relative' }}>
-                <Video size={14} style={{ position: 'absolute', left: 10, top: 11, color: '#ff4444' }} />
-                <input className="form-input" style={{ paddingLeft: 32 }} value={form.videoUrl} onChange={e => set('videoUrl', e.target.value)} placeholder="https://youtube.com/watch?v=..." />
+              <label className="form-label">
+                🎬 Video URLs
+                {form.videoUrls.length > 1 && (
+                  <span style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 400, marginLeft: 6 }}>({form.videoUrls.length})</span>
+                )}
+              </label>
+              {form.videoUrls.map((url, i) => (
+                <div key={i} style={{ position: 'relative', display: 'flex', gap: 4, marginBottom: 5 }}>
+                  <Video size={14} style={{ position: 'absolute', left: 10, top: 11, color: '#ff4444', pointerEvents: 'none' }} />
+                  <input
+                    className="form-input"
+                    style={{ paddingLeft: 32, flex: 1 }}
+                    value={url}
+                    onChange={e => updateUrl(i, e.target.value)}
+                    placeholder="https://youtube.com/watch?v=..."
+                  />
+                  {form.videoUrls.length > 1 && (
+                    <button type="button" className="task-card-action-btn" onClick={() => removeUrl(i)} title="Remove">
+                      <X size={12} />
+                    </button>
+                  )}
+                </div>
+              ))}
+              <button type="button" className="btn btn-ghost btn-sm" onClick={addUrl} style={{ fontSize: 11, padding: '4px 8px' }}>
+                <Plus size={12} /> Add another video
+              </button>
+              <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 4 }}>
+                YouTube, Loom, or any video link. The 🎬 icon shows once; clicking it plays the video (or shows a small carousel if there are multiple).
               </div>
-              <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>YouTube, Loom, or any video link — will show a red 🎬 icon</span>
             </div>
             <div className="form-group">
               <label className="form-label">📄 Doc / Question URL</label>
@@ -214,7 +250,7 @@ function ContentModal({ initial, onSave, onClose }) {
 }
 
 // ── Content Row ───────────────────────────────────────────────
-function ContentItem({ content, onEdit, onDelete, onCycleStatus, onMoveToBoard }) {
+function ContentItem({ content, onEdit, onDelete, onCycleStatus, onMoveToBoard, onPlayVideo }) {
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: 12,
@@ -252,23 +288,19 @@ function ContentItem({ content, onEdit, onDelete, onCycleStatus, onMoveToBoard }
         )}
       </div>
 
-      {/* Link icons — only show if URL exists, clicking opens in new tab */}
+      {/* Link icons */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-        {content.videoUrl && (
-          <a href={content.videoUrl} target="_blank" rel="noopener noreferrer"
-            title="Watch Video"
-            style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: 28, height: 28, borderRadius: 6,
-              background: 'rgba(255,68,68,0.12)', color: '#ff4444',
-              textDecoration: 'none', transition: 'background 0.2s',
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,68,68,0.25)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,68,68,0.12)'}
-          >
-            <Video size={14} />
-          </a>
-        )}
+        {(() => {
+          const urls = Array.isArray(content.videoUrls) && content.videoUrls.length > 0
+            ? content.videoUrls
+            : (content.videoUrl ? [content.videoUrl] : []);
+          return (
+            <VideoIconButton
+              urls={urls}
+              onPlay={() => onPlayVideo?.(urls, urls[0], content.title)}
+            />
+          );
+        })()}
         {content.docUrl && (
           <a href={content.docUrl} target="_blank" rel="noopener noreferrer"
             title="Open Document/Question"
@@ -303,6 +335,7 @@ export default function SubjectDetailPage({ params }) {
   const [converting, setConverting] = useState(false);
   const [showConvertModal, setShowConvertModal] = useState(false);
   const [moveModal, setMoveModal] = useState(null); // { kind, topicId, contentId? }
+  const [videoModal, setVideoModal] = useState(null); // { urls, startUrl, title } | null
 
   const [topicModal, setTopicModal] = useState(null); // null | { mode: 'add' | 'edit', initial? }
   const [contentModal, setContentModal] = useState(null); // null | { topicId, initial? }
@@ -396,17 +429,23 @@ export default function SubjectDetailPage({ params }) {
         createdAt: now,
         completedAt: null,
         sourceRef: { subjectId: subject.id, topicId: topic.id },
-        subtasks: (topic.contents || []).map((c, i) => ({
-          id: `st-${now}-${i}-${rand()}`,
-          title: c.title,
-          notes: c.notes || '',
-          videoUrl: c.videoUrl || '',
-          docUrl: c.docUrl || '',
-          priority: c.priority || 'medium',
-          status: c.status || 'not-started',
-          sourceContentId: c.id,
-          createdAt: now,
-        })),
+        subtasks: (topic.contents || []).map((c, i) => {
+          const urls = Array.isArray(c.videoUrls) && c.videoUrls.length > 0
+            ? c.videoUrls
+            : (c.videoUrl ? [c.videoUrl] : []);
+          return {
+            id: `st-${now}-${i}-${rand()}`,
+            title: c.title,
+            notes: c.notes || '',
+            videoUrl: urls[0] || '',
+            videoUrls: urls,
+            docUrl: c.docUrl || '',
+            priority: c.priority || 'medium',
+            status: c.status || 'not-started',
+            sourceContentId: c.id,
+            createdAt: now,
+          };
+        }),
       };
     } else {
       const content = (topic.contents || []).find(c => c.id === contentId);
@@ -422,17 +461,23 @@ export default function SubjectDetailPage({ params }) {
         createdAt: now,
         completedAt: content.status === 'done' ? now : null,
         sourceRef: { subjectId: subject.id, topicId: topic.id },
-        subtasks: [{
-          id: `st-${now}-${rand()}`,
-          title: content.title,
-          notes: content.notes || '',
-          videoUrl: content.videoUrl || '',
-          docUrl: content.docUrl || '',
-          priority: content.priority || 'medium',
-          status: content.status || 'not-started',
-          sourceContentId: content.id,
-          createdAt: now,
-        }],
+        subtasks: [(() => {
+          const urls = Array.isArray(content.videoUrls) && content.videoUrls.length > 0
+            ? content.videoUrls
+            : (content.videoUrl ? [content.videoUrl] : []);
+          return {
+            id: `st-${now}-${rand()}`,
+            title: content.title,
+            notes: content.notes || '',
+            videoUrl: urls[0] || '',
+            videoUrls: urls,
+            docUrl: content.docUrl || '',
+            priority: content.priority || 'medium',
+            status: content.status || 'not-started',
+            sourceContentId: content.id,
+            createdAt: now,
+          };
+        })()],
       };
     }
 
@@ -631,6 +676,7 @@ export default function SubjectDetailPage({ params }) {
                               onDelete={(cId) => handleDeleteContent(topic.id, cId)}
                               onCycleStatus={(cId) => handleCycleContentStatus(topic.id, cId)}
                               onMoveToBoard={() => setMoveModal({ kind: 'content', topicId: topic.id, contentId: content.id })}
+                              onPlayVideo={(urls, startUrl, title) => setVideoModal({ urls, startUrl, title })}
                             />
                           ))
                         )}
@@ -654,6 +700,15 @@ export default function SubjectDetailPage({ params }) {
           onConfirm={handleConvertToTasks}
           onCancel={() => !converting && setShowConvertModal(false)}
           loading={converting}
+        />
+      )}
+
+      {videoModal && (
+        <VideoPlayerModal
+          urls={videoModal.urls}
+          startUrl={videoModal.startUrl}
+          title={videoModal.title}
+          onClose={() => setVideoModal(null)}
         />
       )}
 
